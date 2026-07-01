@@ -94,6 +94,7 @@ export default function Home() {
           ABDUR_RAFAY<span className="text-primary animate-pulse">_</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm font-mono text-muted-foreground">
+          <a href="#experience" className="hover:text-primary transition-colors">/work</a>
           <a href="#skills" className="hover:text-primary transition-colors">/skills</a>
           <a href="#projects" className="hover:text-primary transition-colors">/projects</a>
           <a href="#education" className="hover:text-primary transition-colors">/edu</a>
@@ -216,6 +217,84 @@ export default function Home() {
               <div className="text-sm text-muted-foreground mt-1 uppercase tracking-wider font-mono text-xs">{stat.label}</div>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* WORK EXPERIENCE SECTION */}
+      <section id="experience" className="py-24 relative z-10">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="text-sm font-mono text-primary mb-2 uppercase tracking-widest">// Field_Operations</h2>
+            <h3 className="text-3xl md:text-5xl font-bold">Work Experience</h3>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Timeline line */}
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/30 to-transparent hidden md:block" style={{ left: "11px" }} />
+
+            <div className="md:pl-12">
+              {/* Dot */}
+              <div className="hidden md:flex absolute w-6 h-6 rounded-full bg-background border-2 border-primary items-center justify-center" style={{ left: 0, top: "4px" }}>
+                <div className="w-2 h-2 rounded-full bg-primary" />
+              </div>
+
+              <div className="glass-panel rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-colors relative overflow-hidden group">
+                {/* Hover glow */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none" />
+
+                <div className="relative z-10">
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 mb-6">
+                    <div>
+                      <div className="flex items-center gap-3 mb-1">
+                        <h4 className="text-xl font-bold text-white">Intern Business Analyst</h4>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-primary/10 border border-primary/20 text-primary">INTERNSHIP</span>
+                      </div>
+                      <div className="text-primary font-semibold text-base">CODUP</div>
+                      <div className="text-muted-foreground font-mono text-sm mt-0.5">Karachi, Pakistan &mdash; On-site</div>
+                    </div>
+                    <div className="flex flex-col items-start md:items-end gap-1 flex-shrink-0">
+                      <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/70">
+                        Aug 2025 &ndash; Nov 2025
+                      </div>
+                      <div className="text-xs font-mono text-muted-foreground">4 months</div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {[
+                      "Gathered and analyzed business requirements; prepared Jira tickets, Top-level approach docs, and Requirement Analysis Documents for new-lead projects.",
+                      "Configured and evaluated eCommerce solutions across WordPress (WooCommerce), Shopify Plus sandbox, and BigCommerce platforms.",
+                      "Collaborated with cross-functional teams to translate business needs into clear technical specifications for engineering teams.",
+                      "Developed understanding of B2B and B2C eCommerce processes, Klaviyo marketing automation, and HubSpot CRM workflows.",
+                      "Built multiple WordPress stores (Blog, WooCommerce, Brochure) and explored Shopify/BigCommerce feature sets end-to-end.",
+                      "Gained hands-on Agile/Scrum experience working on live client projects with stakeholder communication.",
+                    ].map((point, i) => (
+                      <div key={i} className="flex gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                        <p className="text-sm text-muted-foreground leading-relaxed">{point}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {["WordPress", "Shopify", "BigCommerce", "Jira", "HubSpot", "Klaviyo", "Figma", "Agile/Scrum", "Requirements Analysis"].map((tag, i) => (
+                      <span key={i} className="text-xs font-mono px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary/80">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
