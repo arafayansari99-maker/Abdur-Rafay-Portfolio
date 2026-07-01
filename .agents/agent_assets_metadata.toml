@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "RiqF26Sv5Lm39pu9K6oT1"
+uri = "file://artifacts/portfolio/public/hero-bg.png"
+type = "image"
+title = "Dark abstract data network viz"

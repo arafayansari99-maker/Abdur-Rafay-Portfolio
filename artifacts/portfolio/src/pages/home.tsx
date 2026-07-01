@@ -1,0 +1,531 @@
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useInView } from "framer-motion";
+import { 
+  Database, LineChart, Server, Cpu, BrainCircuit, 
+  Terminal, Code2, GraduationCap, Trophy, ChevronRight, 
+  Mail, Github, Linkedin, ExternalLink, Activity, Network
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+// --- Subcomponents ---
+
+const AnimatedText = ({ texts }: { texts: string[] }) => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % texts.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [texts]);
+
+  return (
+    <div className="h-[40px] md:h-[60px] overflow-hidden relative">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={index}
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -40, opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="absolute inset-0 flex items-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary font-bold text-3xl md:text-5xl"
+        >
+          {texts[index]}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const AnimatedNumber = ({ value, duration = 2 }: { value: number, duration?: number }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const end = value;
+    const totalFrames = Math.round(duration * 60);
+    const increment = end / totalFrames;
+    
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(Math.ceil(start));
+      }
+    }, 1000 / 60);
+
+    return () => clearInterval(timer);
+  }, [isInView, value, duration]);
+
+  return <span ref={ref}>{count}</span>;
+};
+
+// --- Main Page ---
+
+export default function Home() {
+  const { scrollYProgress } = useScroll();
+  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+
+  return (
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/30">
+      
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none bg-grid-pattern opacity-[0.15]" />
+      <div className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none overflow-hidden">
+         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px]" />
+         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/10 blur-[120px]" />
+      </div>
+
+      {/* Navigation (Simple sticky) */}
+      <nav className="fixed top-0 left-0 w-full z-50 glass-panel border-b-0 border-white/5 py-4 px-6 md:px-12 flex justify-between items-center transition-all duration-300">
+        <div className="font-mono font-bold text-xl tracking-tighter text-white flex items-center gap-2">
+          <Activity className="text-primary w-5 h-5" />
+          ALEX_CHEN<span className="text-primary animate-pulse">_</span>
+        </div>
+        <div className="hidden md:flex items-center gap-8 text-sm font-mono text-muted-foreground">
+          <a href="#skills" className="hover:text-primary transition-colors">/skills</a>
+          <a href="#projects" className="hover:text-primary transition-colors">/projects</a>
+          <a href="#education" className="hover:text-primary transition-colors">/edu</a>
+          <Button variant="outline" size="sm" className="font-mono text-xs border-primary/30 hover:border-primary hover:bg-primary/10" asChild>
+            <a href="#contact">INITIALIZE_CONTACT</a>
+          </Button>
+        </div>
+      </nav>
+
+      {/* HERO SECTION */}
+      <section className="relative min-h-[100dvh] flex items-center justify-center pt-20 px-6 z-10 overflow-hidden">
+        {/* Background Image injected carefully */}
+        <motion.div style={{ y: yBg, opacity: opacityHero }} className="absolute inset-0 z-0">
+           <img src="/hero-bg.png" alt="Data Visualization Background" className="w-full h-full object-cover opacity-30 mix-blend-screen" />
+           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
+        </motion.div>
+
+        <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
+          <div className="col-span-1 lg:col-span-8 flex flex-col justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-mono text-xs w-fit mb-6"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              SYSTEM_ONLINE // OPEN FOR OPPORTUNITIES
+            </motion.div>
+
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
+            >
+              Alex Chen
+            </motion.h1>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <AnimatedText texts={["Data Analyst", "Business Analyst", "Data Scientist", "ML Engineer", "AI Engineer"]} />
+            </motion.div>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-lg md:text-xl text-muted-foreground mt-6 max-w-2xl leading-relaxed font-light"
+            >
+              Recent CS grad who turns messy data into decisions. I build models that ship and dashboards that stick. Bridging analytical rigor with modern AI tools.
+            </motion.p>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-10 flex flex-wrap gap-4"
+            >
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8" asChild>
+                <a href="#projects">
+                  View Projects <ChevronRight className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/5 font-mono">
+                <Terminal className="mr-2 h-4 w-4" /> Download Resume
+              </Button>
+            </motion.div>
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="col-span-1 lg:col-span-4 hidden lg:flex items-center justify-center relative"
+          >
+            {/* Abstract Decorative Element */}
+            <div className="relative w-full aspect-square max-w-[300px]">
+              <div className="absolute inset-0 border border-primary/20 rounded-full animate-[spin_20s_linear_infinite]" />
+              <div className="absolute inset-4 border border-secondary/20 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+              <div className="absolute inset-8 border border-white/10 rounded-full border-dashed animate-[spin_25s_linear_infinite]" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Network className="w-16 h-16 text-primary opacity-50" />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* STATS STRIP */}
+      <section className="relative z-20 py-12 border-y border-white/5 bg-background/50 backdrop-blur-md">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x-0 md:divide-x divide-white/5">
+          {[
+            { label: "Lines of Code", value: 150, suffix: "K+", icon: Code2 },
+            { label: "Models Trained", value: 42, suffix: "", icon: BrainCircuit },
+            { label: "Dashboards Built", value: 18, suffix: "", icon: LineChart },
+            { label: "Coffee Consumed", value: 999, suffix: "+", icon: Database }
+          ].map((stat, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="flex flex-col items-center justify-center text-center px-4"
+            >
+              <stat.icon className="w-6 h-6 text-secondary mb-3 opacity-70" />
+              <div className="text-3xl md:text-4xl font-bold font-mono text-white flex items-center">
+                <AnimatedNumber value={stat.value} />{stat.suffix}
+              </div>
+              <div className="text-sm text-muted-foreground mt-1 uppercase tracking-wider font-mono text-xs">{stat.label}</div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* SKILLS SECTION */}
+      <section id="skills" className="py-24 relative z-10">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="text-sm font-mono text-primary mb-2 uppercase tracking-widest">// Technical_Arsenal</h2>
+            <h3 className="text-3xl md:text-5xl font-bold">Tools of the Trade</h3>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { category: "Language & ML", icon: Terminal, items: [{n: "Python", v: 95}, {n: "TensorFlow / PyTorch", v: 80}, {n: "Scikit-Learn", v: 90}] },
+              { category: "Data Engineering", icon: Database, items: [{n: "SQL (Postgres/BQ)", v: 92}, {n: "Pandas/NumPy", v: 95}, {n: "Docker Basics", v: 70}] },
+              { category: "Visualization", icon: LineChart, items: [{n: "Tableau", v: 88}, {n: "Power BI", v: 85}, {n: "Plotly/Matplotlib", v: 90}] },
+              { category: "AI & NLP", icon: BrainCircuit, items: [{n: "LLMs / Prompting", v: 85}, {n: "HuggingFace", v: 80}, {n: "LangChain", v: 75}] },
+              { category: "Cloud & Ops", icon: Server, items: [{n: "AWS Basics", v: 65}, {n: "Git / CI/CD", v: 85}, {n: "FastAPI", v: 80}] },
+              { category: "Business Tools", icon: Activity, items: [{n: "Excel / Sheets API", v: 90}, {n: "Jira / Agile", v: 80}, {n: "Notion", v: 95}] },
+            ].map((block, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="glass-panel p-6 rounded-xl relative group overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-secondary opacity-50 group-hover:opacity-100 transition-opacity" />
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 rounded-lg bg-white/5 border border-white/10 text-primary">
+                    <block.icon className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-semibold text-lg">{block.category}</h4>
+                </div>
+                <div className="space-y-4">
+                  {block.items.map((item, j) => (
+                    <div key={j}>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-muted-foreground font-mono">{item.n}</span>
+                        <span className="text-white/50 font-mono text-xs">{item.v}%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${item.v}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, delay: 0.5 + (j * 0.1) }}
+                          className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TARGET ROLES - Visual Segment */}
+      <section className="py-16 relative z-10 overflow-hidden bg-primary/5 border-y border-primary/20">
+         <div className="max-w-6xl mx-auto px-6 relative">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="md:w-1/3">
+                 <h2 className="text-2xl font-bold font-mono text-primary mb-2">TARGET_VECTORS</h2>
+                 <p className="text-muted-foreground text-sm">Configured and optimized for high-impact analytical & engineering roles.</p>
+              </div>
+              <div className="md:w-2/3 flex flex-wrap gap-3 justify-end">
+                {["Data Analyst", "Business Analyst", "Data Scientist", "ML Engineer", "AI Engineer"].map((role, i) => (
+                  <Badge key={i} variant="outline" className="px-4 py-2 text-sm bg-background/80 border-primary/30 text-white font-mono hover:bg-primary/20 transition-colors">
+                    {role}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+         </div>
+      </section>
+
+      {/* PROJECTS SECTION */}
+      <section id="projects" className="py-24 relative z-10">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6"
+          >
+            <div>
+              <h2 className="text-sm font-mono text-primary mb-2 uppercase tracking-widest">// Executed_Protocols</h2>
+              <h3 className="text-3xl md:text-5xl font-bold">Featured Projects</h3>
+            </div>
+            <Button variant="link" className="text-primary hover:text-primary/80 font-mono p-0 h-auto hidden md:flex">
+              View All Repositories <ExternalLink className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "Sales Forecasting Dashboard",
+                desc: "Built an XGBoost model predicting next-quarter sales with 89% accuracy; connected to a Tableau dashboard refreshed daily.",
+                stack: ["Python", "XGBoost", "Tableau", "PostgreSQL"],
+                metric: "89% Accuracy"
+              },
+              {
+                title: "Customer Churn Predictor",
+                desc: "Logistic regression + SHAP explanations for a telecom dataset; reduced false negatives by 34% through targeted feature engineering.",
+                stack: ["Python", "Scikit-learn", "SHAP", "Pandas"],
+                metric: "34% False Neg ↓"
+              },
+              {
+                title: "NLP Sentiment Analyzer",
+                desc: "Fine-tuned BERT on 50K product reviews to classify sentiment; deployed as a scalable REST API.",
+                stack: ["Python", "Transformers", "FastAPI", "Docker"],
+                metric: "50K+ Records"
+              },
+              {
+                title: "Business KPI Tracker",
+                desc: "End-to-end Power BI dashboard tracking 12 critical business KPIs; integrated with Google Sheets API for live data sync.",
+                stack: ["Power BI", "DAX", "Google Sheets API"],
+                metric: "Live Sync"
+              }
+            ].map((project, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative"
+              >
+                {/* Glow effect behind card */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+                
+                <Card className="relative h-full bg-background border-white/10 overflow-hidden">
+                  <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity">
+                    <Database className="w-24 h-24 text-primary" />
+                  </div>
+                  <CardContent className="p-8 flex flex-col h-full relative z-10">
+                    <div className="flex justify-between items-start mb-6">
+                      <h4 className="text-xl font-bold text-white group-hover:text-primary transition-colors">{project.title}</h4>
+                      <div className="px-3 py-1 bg-white/5 rounded text-xs font-mono text-secondary border border-secondary/20 whitespace-nowrap">
+                        {project.metric}
+                      </div>
+                    </div>
+                    
+                    <p className="text-muted-foreground mb-8 flex-grow leading-relaxed">
+                      {project.desc}
+                    </p>
+                    
+                    <div>
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {project.stack.map((tech, j) => (
+                          <span key={j} className="text-xs font-mono px-2 py-1 bg-white/5 border border-white/10 rounded text-white/70">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex gap-3">
+                        <Button variant="outline" size="sm" className="w-full bg-transparent border-white/20 hover:bg-white/5 text-white">
+                          <Github className="mr-2 h-4 w-4" /> Source
+                        </Button>
+                        <Button variant="outline" size="sm" className="w-full bg-transparent border-primary/30 text-primary hover:bg-primary hover:text-background">
+                          <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* EDUCATION & CERTS */}
+      <section id="education" className="py-24 relative z-10 bg-white/[0.02] border-y border-white/5">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
+          
+          {/* Education */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center gap-3 mb-8">
+              <GraduationCap className="text-primary w-6 h-6" />
+              <h3 className="text-2xl font-bold">Academic Base</h3>
+            </div>
+            <div className="relative pl-6 border-l border-white/10 space-y-8">
+              <div className="relative">
+                <div className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-background border-2 border-primary" />
+                <h4 className="text-lg font-bold text-white">B.Tech in Computer Science</h4>
+                <div className="text-primary font-mono text-sm mb-2">XYZ University • 2024</div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded font-mono text-sm text-white mb-4">
+                  GPA: <span className="text-secondary font-bold">8.6 / 10</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  <strong className="text-white/80">Relevant Coursework:</strong> Machine Learning, Database Systems, Statistics, Data Mining, Business Analytics.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Certs & Achievements */}
+          <motion.div
+             initial={{ opacity: 0, x: 20 }}
+             whileInView={{ opacity: 1, x: 0 }}
+             viewport={{ once: true }}
+          >
+            <div className="flex items-center gap-3 mb-8">
+              <Trophy className="text-secondary w-6 h-6" />
+              <h3 className="text-2xl font-bold">Credentials & Wins</h3>
+            </div>
+            <div className="space-y-4">
+              {[
+                { title: "Google Data Analytics Professional Certificate", provider: "Google" },
+                { title: "AWS Certified Cloud Practitioner", provider: "Amazon Web Services" },
+                { title: "Kaggle Competitions", provider: "Top 15% in 2 active competitions", highlight: true },
+                { title: "HackerRank SQL", provider: "Gold Badge", highlight: true }
+              ].map((cert, i) => (
+                <div key={i} className="flex items-center gap-4 p-4 rounded-lg bg-background border border-white/5 hover:border-white/20 transition-colors">
+                  <div className={`p-3 rounded-full ${cert.highlight ? 'bg-secondary/10 text-secondary' : 'bg-primary/10 text-primary'}`}>
+                    <Trophy className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-white">{cert.title}</h5>
+                    <p className="text-xs font-mono text-muted-foreground mt-1">{cert.provider}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
+      {/* CONTACT FOOTER */}
+      <section id="contact" className="py-24 relative z-10 overflow-hidden">
+         {/* Subtle background glow */}
+         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-primary/10 blur-[120px] pointer-events-none rounded-full" />
+         
+         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Deploy?</span></h2>
+              <p className="text-muted-foreground text-lg mb-12 max-w-2xl mx-auto font-light">
+                Whether you have a messy dataset that needs taming, a dashboard that needs building, or a model that needs shipping — let's talk.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="glass-panel p-8 md:p-12 rounded-2xl max-w-2xl mx-auto border-white/10 text-left mb-16"
+            >
+              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-mono text-muted-foreground uppercase">Sender_Name</label>
+                    <Input placeholder="John Doe" className="bg-background/50 border-white/10 focus-visible:ring-primary" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-mono text-muted-foreground uppercase">Reply_Address</label>
+                    <Input placeholder="john@company.com" type="email" className="bg-background/50 border-white/10 focus-visible:ring-primary" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-mono text-muted-foreground uppercase">Payload</label>
+                  <Textarea placeholder="How can I help you?" className="min-h-[120px] bg-background/50 border-white/10 focus-visible:ring-primary" />
+                </div>
+                <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-mono text-sm py-6">
+                  TRANSMIT_MESSAGE
+                </Button>
+              </form>
+            </motion.div>
+
+            <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 pt-8 border-t border-white/5">
+              <a href="mailto:alex.chen@email.com" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
+                <div className="p-3 rounded-full bg-white/5 group-hover:bg-primary/20 group-hover:text-primary transition-colors">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <span className="font-mono text-sm">alex.chen@email.com</span>
+              </a>
+              <a href="https://linkedin.com/in/alexchen" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
+                <div className="p-3 rounded-full bg-white/5 group-hover:bg-[#0A66C2]/20 group-hover:text-[#0A66C2] transition-colors">
+                  <Linkedin className="w-5 h-5" />
+                </div>
+                <span className="font-mono text-sm">/in/alexchen</span>
+              </a>
+              <a href="https://github.com/alexchen" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
+                <div className="p-3 rounded-full bg-white/5 group-hover:bg-white/20 transition-colors">
+                  <Github className="w-5 h-5" />
+                </div>
+                <span className="font-mono text-sm">github.com/alexchen</span>
+              </a>
+            </div>
+         </div>
+      </section>
+      
+      {/* Footer minimal */}
+      <footer className="py-6 text-center text-xs font-mono text-muted-foreground/50 border-t border-white/5 relative z-10 bg-background">
+        <p>SYSTEM.HALT // DESIGNED & ENGINEERED BY ALEX CHEN © {new Date().getFullYear()}</p>
+      </footer>
+    </div>
+  );
+}
