@@ -526,11 +526,10 @@ export default function Home() {
                 role: "Software Engineer",
                 desc: "Full-stack and backend focus — OOP, DSA, FastAPI, PHP/Laravel, REST APIs, and software design.",
                 tags: ["Python", "FastAPI", "PHP", "Laravel", "OOP", "DSA"],
-                file: "/resume-software-engineer.html",
+                file: "/resume-software-engineer.pdf",
                 color: "from-amber-500/20 to-orange-500/10",
                 border: "border-amber-500/30 hover:border-amber-500/60",
                 iconColor: "text-amber-400",
-                isHtml: true,
               },
             ].map((resume, i) => (
               <motion.div
@@ -553,24 +552,13 @@ export default function Home() {
                       <span key={j} className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60">{tag}</span>
                     ))}
                   </div>
-                  {resume.isHtml ? (
-                    <a
-                      href={resume.file}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border ${resume.border} text-sm font-mono text-white/80 hover:text-white bg-white/5 hover:bg-white/10 transition-all`}
-                    >
-                      <ExternalLink className="w-4 h-4" /> Open &amp; Print to PDF
-                    </a>
-                  ) : (
-                    <a
-                      href={resume.file}
-                      download
-                      className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border ${resume.border} text-sm font-mono text-white/80 hover:text-white bg-white/5 hover:bg-white/10 transition-all`}
-                    >
-                      <Download className="w-4 h-4" /> Download PDF
-                    </a>
-                  )}
+                  <a
+                    href={resume.file}
+                    download
+                    className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border ${resume.border} text-sm font-mono text-white/80 hover:text-white bg-white/5 hover:bg-white/10 transition-all`}
+                  >
+                    <Download className="w-4 h-4" /> Download PDF
+                  </a>
                 </div>
               </motion.div>
             ))}
