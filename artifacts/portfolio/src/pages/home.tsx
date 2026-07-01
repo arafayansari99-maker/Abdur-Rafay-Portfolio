@@ -90,7 +90,7 @@ export default function Home() {
       <nav className="fixed top-0 left-0 w-full z-50 glass-panel border-b-0 border-white/5 py-4 px-6 md:px-12 flex justify-between items-center transition-all duration-300">
         <div className="font-mono font-bold text-xl tracking-tighter text-white flex items-center gap-2">
           <Activity className="text-primary w-5 h-5" />
-          ALEX_CHEN<span className="text-primary animate-pulse">_</span>
+          ABDUR_RAFAY<span className="text-primary animate-pulse">_</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm font-mono text-muted-foreground">
           <a href="#skills" className="hover:text-primary transition-colors">/skills</a>
@@ -131,7 +131,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
             >
-              Alex Chen
+              Abdur Rafay
             </motion.h1>
             
             <motion.div
@@ -174,13 +174,14 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="col-span-1 lg:col-span-4 hidden lg:flex items-center justify-center relative"
           >
-            {/* Abstract Decorative Element */}
-            <div className="relative w-full aspect-square max-w-[300px]">
-              <div className="absolute inset-0 border border-primary/20 rounded-full animate-[spin_20s_linear_infinite]" />
+            <div className="relative w-full aspect-square max-w-[280px]">
+              <div className="absolute inset-0 border border-primary/30 rounded-full animate-[spin_20s_linear_infinite]" />
               <div className="absolute inset-4 border border-secondary/20 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
               <div className="absolute inset-8 border border-white/10 rounded-full border-dashed animate-[spin_25s_linear_infinite]" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <Network className="w-16 h-16 text-primary opacity-50" />
+                <div className="w-44 h-44 rounded-full overflow-hidden border-2 border-primary/50 shadow-[0_0_40px_rgba(0,200,200,0.25)]">
+                  <img src="/profile.png" alt="Abdur Rafay" className="w-full h-full object-cover" />
+                </div>
               </div>
             </div>
           </motion.div>
@@ -308,8 +309,10 @@ export default function Home() {
               <h2 className="text-sm font-mono text-primary mb-2 uppercase tracking-widest">// Executed_Protocols</h2>
               <h3 className="text-3xl md:text-5xl font-bold">Featured Projects</h3>
             </div>
-            <Button variant="link" className="text-primary hover:text-primary/80 font-mono p-0 h-auto hidden md:flex">
-              View All Repositories <ExternalLink className="ml-2 h-4 w-4" />
+            <Button variant="link" className="text-primary hover:text-primary/80 font-mono p-0 h-auto hidden md:flex" asChild>
+              <a href="https://github.com/arafayansari99-maker" target="_blank" rel="noopener noreferrer">
+                View All Repositories <ExternalLink className="ml-2 h-4 w-4" />
+              </a>
             </Button>
           </motion.div>
 
@@ -429,24 +432,37 @@ export default function Home() {
           >
             <div className="flex items-center gap-3 mb-8">
               <Trophy className="text-secondary w-6 h-6" />
-              <h3 className="text-2xl font-bold">Credentials & Wins</h3>
+              <h3 className="text-2xl font-bold">Credentials & Certificates</h3>
             </div>
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4">
               {[
-                { title: "Google Data Analytics Professional Certificate", provider: "Google" },
-                { title: "AWS Certified Cloud Practitioner", provider: "Amazon Web Services" },
-                { title: "Kaggle Competitions", provider: "Top 15% in 2 active competitions", highlight: true },
-                { title: "HackerRank SQL", provider: "Gold Badge", highlight: true }
+                { title: "SQL for Data Analysis", provider: "Simplilearn SkillUp", date: "May 2025", img: "/cert-sql.jpg" },
+                { title: "Business Analytics with Excel", provider: "Simplilearn SkillUp", date: "Jan 2024", img: "/cert-business-analytics.jpg" },
+                { title: "Python For Beginners In-Depth", provider: "Udemy", date: "May 2021", img: "/cert-python.jpg" },
+                { title: "Responsive Web Development", provider: "Aptech Computer Education", date: "Feb 2022", img: "/cert-web-dev.jpeg" },
+                { title: "Web Dev with PHP & Laravel", provider: "Aptech Computer Education", date: "Feb 2022", img: "/cert-php-laravel.jpeg" },
               ].map((cert, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-lg bg-background border border-white/5 hover:border-white/20 transition-colors">
-                  <div className={`p-3 rounded-full ${cert.highlight ? 'bg-secondary/10 text-secondary' : 'bg-primary/10 text-primary'}`}>
-                    <Trophy className="w-5 h-5" />
+                <motion.a
+                  key={i}
+                  href={cert.img}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="flex items-center gap-4 p-3 rounded-xl bg-background border border-white/5 hover:border-primary/40 transition-all group"
+                >
+                  <div className="w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 border border-white/10 group-hover:border-primary/30 transition-colors">
+                    <img src={cert.img} alt={cert.title} className="w-full h-full object-cover" />
                   </div>
-                  <div>
-                    <h5 className="font-semibold text-white">{cert.title}</h5>
-                    <p className="text-xs font-mono text-muted-foreground mt-1">{cert.provider}</p>
+                  <div className="flex-1 min-w-0">
+                    <h5 className="font-semibold text-white text-sm group-hover:text-primary transition-colors truncate">{cert.title}</h5>
+                    <p className="text-xs font-mono text-muted-foreground mt-0.5">{cert.provider}</p>
+                    <p className="text-xs font-mono text-white/30 mt-0.5">{cert.date}</p>
                   </div>
-                </div>
+                  <ExternalLink className="w-4 h-4 text-white/20 group-hover:text-primary transition-colors flex-shrink-0" />
+                </motion.a>
               ))}
             </div>
           </motion.div>
@@ -500,23 +516,23 @@ export default function Home() {
             </motion.div>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 pt-8 border-t border-white/5">
-              <a href="mailto:alex.chen@email.com" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
+              <a href="mailto:abdurrafay@email.com" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
                 <div className="p-3 rounded-full bg-white/5 group-hover:bg-primary/20 group-hover:text-primary transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
-                <span className="font-mono text-sm">alex.chen@email.com</span>
+                <span className="font-mono text-sm">abdurrafay@email.com</span>
               </a>
-              <a href="https://linkedin.com/in/alexchen" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
+              <a href="https://linkedin.com/in/abdurrafay" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
                 <div className="p-3 rounded-full bg-white/5 group-hover:bg-[#0A66C2]/20 group-hover:text-[#0A66C2] transition-colors">
                   <Linkedin className="w-5 h-5" />
                 </div>
-                <span className="font-mono text-sm">/in/alexchen</span>
+                <span className="font-mono text-sm">/in/abdurrafay</span>
               </a>
-              <a href="https://github.com/alexchen" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
+              <a href="https://github.com/arafayansari99-maker" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
                 <div className="p-3 rounded-full bg-white/5 group-hover:bg-white/20 transition-colors">
                   <Github className="w-5 h-5" />
                 </div>
-                <span className="font-mono text-sm">github.com/alexchen</span>
+                <span className="font-mono text-sm">arafayansari99-maker</span>
               </a>
             </div>
          </div>
@@ -524,7 +540,7 @@ export default function Home() {
       
       {/* Footer minimal */}
       <footer className="py-6 text-center text-xs font-mono text-muted-foreground/50 border-t border-white/5 relative z-10 bg-background">
-        <p>SYSTEM.HALT // DESIGNED & ENGINEERED BY ALEX CHEN © {new Date().getFullYear()}</p>
+        <p>SYSTEM.HALT // DESIGNED & ENGINEERED BY ABDUR RAFAY © {new Date().getFullYear()}</p>
       </footer>
     </div>
   );
