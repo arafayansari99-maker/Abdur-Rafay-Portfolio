@@ -412,13 +412,18 @@ export default function Home() {
             <div className="relative pl-6 border-l border-white/10 space-y-8">
               <div className="relative">
                 <div className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-background border-2 border-primary" />
-                <h4 className="text-lg font-bold text-white">B.Tech in Computer Science</h4>
-                <div className="text-primary font-mono text-sm mb-2">XYZ University • 2024</div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded font-mono text-sm text-white mb-4">
-                  GPA: <span className="text-secondary font-bold">8.6 / 10</span>
-                </div>
+                <h4 className="text-lg font-bold text-white">Bachelor of Software Engineering</h4>
+                <div className="text-primary font-mono text-sm mb-2">2021 — 2025</div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  <strong className="text-white/80">Relevant Coursework:</strong> Machine Learning, Database Systems, Statistics, Data Mining, Business Analytics.
+                  Four-year program with deep focus on software fundamentals and modern AI. Covered Python, OOP, Data Structures & Algorithms, Machine Learning, Deep Learning, Calculus, and Linear Algebra — building the mathematical and engineering foundation needed for data-intensive roles.
+                </p>
+              </div>
+              <div className="relative">
+                <div className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-background border-2 border-secondary" />
+                <h4 className="text-lg font-bold text-white">Intermediate — Pre-Engineering</h4>
+                <div className="text-secondary font-mono text-sm mb-2">2020</div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Pre-Engineering stream with core subjects: Mathematics, Physics, and Computer Science — laying a rigorous quantitative base for engineering studies.
                 </p>
               </div>
             </div>
@@ -516,17 +521,17 @@ export default function Home() {
             </motion.div>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 pt-8 border-t border-white/5">
-              <a href="mailto:abdurrafay@email.com" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
+              <a href="mailto:a.rafayansari99@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
                 <div className="p-3 rounded-full bg-white/5 group-hover:bg-primary/20 group-hover:text-primary transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
-                <span className="font-mono text-sm">abdurrafay@email.com</span>
+                <span className="font-mono text-sm">a.rafayansari99@gmail.com</span>
               </a>
-              <a href="https://linkedin.com/in/abdurrafay" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
+              <a href="https://www.linkedin.com/in/abdur-rafay-1x/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
                 <div className="p-3 rounded-full bg-white/5 group-hover:bg-[#0A66C2]/20 group-hover:text-[#0A66C2] transition-colors">
                   <Linkedin className="w-5 h-5" />
                 </div>
-                <span className="font-mono text-sm">/in/abdurrafay</span>
+                <span className="font-mono text-sm">/in/abdur-rafay-1x</span>
               </a>
               <a href="https://github.com/arafayansari99-maker" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
                 <div className="p-3 rounded-full bg-white/5 group-hover:bg-white/20 transition-colors">
