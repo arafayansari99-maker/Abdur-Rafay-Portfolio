@@ -4,7 +4,7 @@ import {
   Database, LineChart, Server, Cpu, BrainCircuit, 
   Terminal, Code2, GraduationCap, Trophy, ChevronRight, 
   Mail, Github, Linkedin, ExternalLink, Activity, Network,
-  Download, FileText
+  Download, FileText, Menu, X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -72,10 +72,19 @@ const AnimatedNumber = ({ value, duration = 2 }: { value: number, duration?: num
 
 // --- Main Page ---
 
+const NAV_LINKS = [
+  { href: "#experience", label: "/work" },
+  { href: "#skills",     label: "/skills" },
+  { href: "#projects",   label: "/projects" },
+  { href: "#education",  label: "/edu" },
+  { href: "#resumes",    label: "/resumes" },
+];
+
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/30">
@@ -87,23 +96,63 @@ export default function Home() {
          <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/10 blur-[120px]" />
       </div>
 
-      {/* Navigation (Simple sticky) */}
+      {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 glass-panel border-b-0 border-white/5 py-4 px-6 md:px-12 flex justify-between items-center transition-all duration-300">
-        <div className="font-mono font-bold text-xl tracking-tighter text-white flex items-center gap-2">
+        <div className="font-mono font-bold text-lg tracking-tighter text-white flex items-center gap-2">
           <Activity className="text-primary w-5 h-5" />
           ABDUR_RAFAY<span className="text-primary animate-pulse">_</span>
         </div>
-        <div className="hidden md:flex items-center gap-8 text-sm font-mono text-muted-foreground">
-          <a href="#experience" className="hover:text-primary transition-colors">/work</a>
-          <a href="#skills" className="hover:text-primary transition-colors">/skills</a>
-          <a href="#projects" className="hover:text-primary transition-colors">/projects</a>
-          <a href="#education" className="hover:text-primary transition-colors">/edu</a>
-          <a href="#resumes" className="hover:text-primary transition-colors">/resumes</a>
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-6 text-sm font-mono text-muted-foreground">
+          {NAV_LINKS.map(l => (
+            <a key={l.href} href={l.href} className="hover:text-primary transition-colors">{l.label}</a>
+          ))}
           <Button variant="outline" size="sm" className="font-mono text-xs border-primary/30 hover:border-primary hover:bg-primary/10" asChild>
             <a href="#contact">INITIALIZE_CONTACT</a>
           </Button>
         </div>
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors"
+          onClick={() => setMobileOpen(o => !o)}
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
       </nav>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-[64px] left-0 right-0 z-40 bg-background/95 backdrop-blur-lg border-b border-white/10 md:hidden"
+          >
+            <div className="flex flex-col px-6 py-4 gap-1">
+              {NAV_LINKS.map(l => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="py-3 font-mono text-sm text-muted-foreground hover:text-primary border-b border-white/5 last:border-0 transition-colors"
+                >
+                  {l.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={() => setMobileOpen(false)}
+                className="mt-3 py-3 text-center font-mono text-xs rounded-lg border border-primary/30 text-primary hover:bg-primary/10 transition-colors"
+              >
+                INITIALIZE_CONTACT
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* HERO SECTION */}
       <section className="relative min-h-[100dvh] flex items-center justify-center pt-20 px-6 z-10 overflow-hidden">
@@ -113,8 +162,26 @@ export default function Home() {
            <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
         </motion.div>
 
-        <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
-          <div className="col-span-1 lg:col-span-8 flex flex-col justify-center">
+        <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 relative z-10">
+          {/* Mobile profile photo — shown only on small screens, centred above text */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="flex lg:hidden justify-center"
+          >
+            <div className="relative w-36 h-36">
+              <div className="absolute inset-0 border border-primary/30 rounded-full animate-[spin_20s_linear_infinite]" />
+              <div className="absolute inset-3 border border-secondary/20 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-primary/50 shadow-[0_0_30px_rgba(0,200,200,0.2)]">
+                  <img src="/profile.png" alt="Abdur Rafay" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="col-span-1 lg:col-span-8 flex flex-col justify-center text-center lg:text-left items-center lg:items-start">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -158,14 +225,14 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-10 flex flex-wrap gap-4"
+              className="mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
             >
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8" asChild>
+              <Button size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8" asChild>
                 <a href="#projects">
                   View Projects <ChevronRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
-              <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/5 font-mono" asChild>
+              <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/20 hover:bg-white/5 font-mono" asChild>
                 <a href="#resumes">
                   <FileText className="mr-2 h-4 w-4" /> View Resumes
                 </a>
@@ -248,7 +315,7 @@ export default function Home() {
                 <div className="w-2 h-2 rounded-full bg-primary" />
               </div>
 
-              <div className="glass-panel rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-colors relative overflow-hidden group">
+              <div className="glass-panel rounded-2xl p-5 md:p-8 border border-white/10 hover:border-primary/30 transition-colors relative overflow-hidden group">
                 {/* Hover glow */}
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none" />
 
@@ -392,7 +459,7 @@ export default function Home() {
               <h2 className="text-sm font-mono text-primary mb-2 uppercase tracking-widest">// Executed_Protocols</h2>
               <h3 className="text-3xl md:text-5xl font-bold">Featured Projects</h3>
             </div>
-            <Button variant="link" className="text-primary hover:text-primary/80 font-mono p-0 h-auto hidden md:flex" asChild>
+            <Button variant="link" className="text-primary hover:text-primary/80 font-mono p-0 h-auto flex" asChild>
               <a href="https://github.com/arafayansari99-maker" target="_blank" rel="noopener noreferrer">
                 View All Repositories <ExternalLink className="ml-2 h-4 w-4" />
               </a>
@@ -457,7 +524,7 @@ export default function Home() {
                   <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity">
                     <project.icon className="w-24 h-24 text-primary" />
                   </div>
-                  <CardContent className="p-8 flex flex-col h-full relative z-10">
+                  <CardContent className="p-5 md:p-8 flex flex-col h-full relative z-10">
                     <div className="flex justify-between items-start mb-6">
                       <h4 className="text-xl font-bold text-white group-hover:text-primary transition-colors pr-3">{project.title}</h4>
                       <div className={`px-3 py-1 rounded text-xs font-mono border whitespace-nowrap flex-shrink-0 ${project.badgeColor}`}>
@@ -716,18 +783,18 @@ export default function Home() {
               </form>
             </motion.div>
 
-            <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 pt-8 border-t border-white/5">
-              <a href="mailto:a.rafayansari99@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
-                <div className="p-3 rounded-full bg-white/5 group-hover:bg-primary/20 group-hover:text-primary transition-colors">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12 md:gap-16 pt-8 border-t border-white/5">
+              <a href="mailto:a.rafayansari99@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group min-w-0">
+                <div className="p-3 rounded-full bg-white/5 group-hover:bg-primary/20 group-hover:text-primary transition-colors flex-shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
-                <span className="font-mono text-sm">a.rafayansari99@gmail.com</span>
+                <span className="font-mono text-xs sm:text-sm truncate">a.rafayansari99@gmail.com</span>
               </a>
               <a href="https://www.linkedin.com/in/abdur-rafay-1x/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
-                <div className="p-3 rounded-full bg-white/5 group-hover:bg-[#0A66C2]/20 group-hover:text-[#0A66C2] transition-colors">
+                <div className="p-3 rounded-full bg-white/5 group-hover:bg-[#0A66C2]/20 group-hover:text-[#0A66C2] transition-colors flex-shrink-0">
                   <Linkedin className="w-5 h-5" />
                 </div>
-                <span className="font-mono text-sm">/in/abdur-rafay-1x</span>
+                <span className="font-mono text-xs sm:text-sm">/in/abdur-rafay-1x</span>
               </a>
               <a href="https://github.com/arafayansari99-maker" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-white transition-colors group">
                 <div className="p-3 rounded-full bg-white/5 group-hover:bg-white/20 transition-colors">
