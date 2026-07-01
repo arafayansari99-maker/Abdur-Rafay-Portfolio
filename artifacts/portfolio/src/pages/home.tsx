@@ -402,29 +402,45 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: "Sales Forecasting Dashboard",
-                desc: "Built an XGBoost model predicting next-quarter sales with 89% accuracy; connected to a Tableau dashboard refreshed daily.",
-                stack: ["Python", "XGBoost", "Tableau", "PostgreSQL"],
-                metric: "89% Accuracy"
+                title: "Resume Buildr",
+                desc: "An AI-powered resume builder and screener built with TypeScript. Helps users create, edit, and screen resumes — with a live deployed app on Vercel.",
+                stack: ["TypeScript", "React", "AI", "Vercel"],
+                badge: "Live App",
+                badgeColor: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10",
+                github: "https://github.com/arafayansari99-maker/Resume-Buildr",
+                demo: "https://resume-buildr-resume-screener.vercel.app",
+                icon: Code2,
               },
               {
-                title: "Customer Churn Predictor",
-                desc: "Logistic regression + SHAP explanations for a telecom dataset; reduced false negatives by 34% through targeted feature engineering.",
-                stack: ["Python", "Scikit-learn", "SHAP", "Pandas"],
-                metric: "34% False Neg ↓"
+                title: "Email Threat Analyzer",
+                desc: "A JavaScript application that analyzes emails for cybersecurity threats, phishing patterns, and malicious content — deployed live on Vercel.",
+                stack: ["JavaScript", "NLP", "Security", "Vercel"],
+                badge: "Live App",
+                badgeColor: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10",
+                github: "https://github.com/arafayansari99-maker/Email-Threat-Analyzer",
+                demo: "https://email-threat-analyzer-beryl.vercel.app",
+                icon: BrainCircuit,
               },
               {
-                title: "NLP Sentiment Analyzer",
-                desc: "Fine-tuned BERT on 50K product reviews to classify sentiment; deployed as a scalable REST API.",
-                stack: ["Python", "Transformers", "FastAPI", "Docker"],
-                metric: "50K+ Records"
+                title: "FYP — CyberSecurity Virtual Assistant",
+                desc: "Final Year Project: an LLM-powered cybersecurity assistant with OCR screenshot analysis. Includes a FastAPI chatbot backend API for scalable inference. Secured 5th place at IEEE YESIST12.",
+                stack: ["Python", "LLM", "FastAPI", "OCR", "Scikit-learn", "Jupyter"],
+                badge: "IEEE Award",
+                badgeColor: "text-amber-400 border-amber-400/30 bg-amber-400/10",
+                github: "https://github.com/arafayansari99-maker/-FYP-CyberSecurity-Virtual-Assistant",
+                demo: null,
+                icon: Server,
               },
               {
-                title: "Business KPI Tracker",
-                desc: "End-to-end Power BI dashboard tracking 12 critical business KPIs; integrated with Google Sheets API for live data sync.",
-                stack: ["Power BI", "DAX", "Google Sheets API"],
-                metric: "Live Sync"
-              }
+                title: "Cat vs Dog Image Classifier",
+                desc: "A Convolutional Neural Network (CNN) trained to classify images of cats and dogs. Demonstrates hands-on deep learning with image preprocessing, model training, and evaluation.",
+                stack: ["Python", "CNN", "Deep Learning", "Jupyter", "TensorFlow"],
+                badge: "Deep Learning",
+                badgeColor: "text-violet-400 border-violet-400/30 bg-violet-400/10",
+                github: "https://github.com/arafayansari99-maker/-Cat-Dog-Image-Classification-with-CNN",
+                demo: null,
+                icon: Cpu,
+              },
             ].map((project, i) => (
               <motion.div
                 key={i}
@@ -439,13 +455,13 @@ export default function Home() {
                 
                 <Card className="relative h-full bg-background border-white/10 overflow-hidden">
                   <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-30 transition-opacity">
-                    <Database className="w-24 h-24 text-primary" />
+                    <project.icon className="w-24 h-24 text-primary" />
                   </div>
                   <CardContent className="p-8 flex flex-col h-full relative z-10">
                     <div className="flex justify-between items-start mb-6">
-                      <h4 className="text-xl font-bold text-white group-hover:text-primary transition-colors">{project.title}</h4>
-                      <div className="px-3 py-1 bg-white/5 rounded text-xs font-mono text-secondary border border-secondary/20 whitespace-nowrap">
-                        {project.metric}
+                      <h4 className="text-xl font-bold text-white group-hover:text-primary transition-colors pr-3">{project.title}</h4>
+                      <div className={`px-3 py-1 rounded text-xs font-mono border whitespace-nowrap flex-shrink-0 ${project.badgeColor}`}>
+                        {project.badge}
                       </div>
                     </div>
                     
@@ -462,12 +478,22 @@ export default function Home() {
                         ))}
                       </div>
                       <div className="flex gap-3">
-                        <Button variant="outline" size="sm" className="w-full bg-transparent border-white/20 hover:bg-white/5 text-white">
-                          <Github className="mr-2 h-4 w-4" /> Source
+                        <Button variant="outline" size="sm" className="w-full bg-transparent border-white/20 hover:bg-white/5 text-white" asChild>
+                          <a href={project.github} target="_blank" rel="noopener noreferrer">
+                            <Github className="mr-2 h-4 w-4" /> Source
+                          </a>
                         </Button>
-                        <Button variant="outline" size="sm" className="w-full bg-transparent border-primary/30 text-primary hover:bg-primary hover:text-background">
-                          <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-                        </Button>
+                        {project.demo ? (
+                          <Button variant="outline" size="sm" className="w-full bg-transparent border-primary/30 text-primary hover:bg-primary hover:text-background" asChild>
+                            <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+                            </a>
+                          </Button>
+                        ) : (
+                          <Button variant="outline" size="sm" className="w-full bg-transparent border-white/10 text-white/30 cursor-not-allowed" disabled>
+                            <ExternalLink className="mr-2 h-4 w-4" /> No Demo
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </CardContent>
