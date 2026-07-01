@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abdur Rafay — Software Engineer Resume</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 11pt;
+      color: #1a1a1a;
+      background: #fff;
+      padding: 36px 48px;
+      max-width: 820px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    header { text-align: center; margin-bottom: 18px; border-bottom: 2px solid #0e7490; padding-bottom: 12px; }
+    header h1 { font-size: 24pt; font-weight: 700; letter-spacing: 1px; color: #0e7490; }
+    header h2 { font-size: 13pt; font-weight: 400; color: #334155; letter-spacing: 2px; margin: 4px 0 8px; }
+    header .contact {
+      font-size: 9.5pt;
+      color: #475569;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px 14px;
+    }
+    header .contact a { color: #0e7490; text-decoration: none; }
+    section { margin-bottom: 16px; }
+    .section-title {
+      font-size: 10pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #0e7490;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 3px;
+      margin-bottom: 10px;
+    }
+    .summary { color: #334155; font-size: 10.5pt; }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .exp-org { font-weight: 700; color: #1e293b; }
+    .exp-role { font-style: italic; color: #475569; font-size: 10pt; }
+    .exp-date { font-size: 10pt; color: #64748b; white-space: nowrap; text-align: right; }
+    ul { padding-left: 18px; margin-top: 5px; }
+    ul li { margin-bottom: 3px; color: #334155; font-size: 10.5pt; }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+    .skill-row { font-size: 10.5pt; color: #334155; }
+    .skill-row strong { color: #1e293b; }
+    .edu-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .edu-org { font-weight: 700; color: #1e293b; }
+    .edu-deg { color: #475569; font-size: 10.5pt; }
+    .edu-date { font-size: 10pt; color: #64748b; }
+    .cert-row { display: flex; justify-content: space-between; margin-bottom: 3px; font-size: 10.5pt; }
+    .cert-name { color: #334155; }
+    .cert-date { color: #64748b; font-size: 10pt; }
+    .project-title { font-weight: 700; color: #1e293b; font-size: 10.5pt; }
+    .ach-title { font-weight: 700; color: #1e293b; }
+    @media print {
+      body { padding: 20px 32px; }
+      @page { margin: 0.5in; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ABDUR RAFAY</h1>
+    <h2>SOFTWARE ENGINEER</h2>
+    <div class="contact">
+      <span>Karachi, Pakistan</span>
+      <span>•</span>
+      <a href="mailto:a.rafayansari99@gmail.com">a.rafayansari99@gmail.com</a>
+      <span>•</span>
+      <span>+92 312 2053670</span>
+      <span>•</span>
+      <a href="https://www.linkedin.com/in/abdur-rafay-1x/" target="_blank">LinkedIn</a>
+      <span>•</span>
+      <a href="https://github.com/arafayansari99-maker" target="_blank">GitHub</a>
+      <span>•</span>
+      <a href="https://ar-datafolio.netlify.app" target="_blank">ar-datafolio.netlify.app</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-title">Summary</div>
+    <p class="summary">
+      Fresh Software Engineering graduate from Karachi University with a strong foundation in Python, OOP, Data Structures &amp; Algorithms, Machine Learning, and Deep Learning. Built production-grade projects including an LLM-powered cybersecurity chatbot (FastAPI + OCR), a cancer risk ML pipeline, and multiple data dashboards. Internship experience as a Business Analyst at CODUP, working across eCommerce platforms and agile teams. Eager to contribute to engineering teams as a backend, full-stack, or ML-integrated software engineer.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-title">Professional Experience</div>
+    <div class="exp-header">
+      <div>
+        <div class="exp-org">CODUP &mdash; <span style="font-weight:400">Karachi (On-site)</span></div>
+        <div class="exp-role">Intern Business Analyst</div>
+      </div>
+      <div class="exp-date">Aug 2025 &ndash; Nov 2025</div>
+    </div>
+    <ul>
+      <li>Gathered and documented business requirements; prepared Jira tickets, Top-level approach docs, and Requirement Analysis Documents for new-lead projects.</li>
+      <li>Configured and evaluated eCommerce solutions on WordPress (WooCommerce), Shopify (Plus sandbox), and BigCommerce platforms.</li>
+      <li>Collaborated with cross-functional teams to translate business needs into clear technical specifications.</li>
+      <li>Developed working knowledge of B2B/B2C eCommerce processes, Klaviyo marketing automation, and HubSpot CRM workflows.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-title">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-row"><strong>Languages:</strong> Python, SQL, JavaScript, PHP, HTML, CSS</div>
+      <div class="skill-row"><strong>Backend:</strong> FastAPI, Laravel, REST APIs</div>
+      <div class="skill-row"><strong>ML / Data:</strong> Pandas, NumPy, Scikit-learn, EDA, Feature Engineering</div>
+      <div class="skill-row"><strong>AI / NLP:</strong> LLM Applications, OCR Integration, Deep Learning Fundamentals</div>
+      <div class="skill-row"><strong>Concepts:</strong> OOP, DSA, Machine Learning, Software Design</div>
+      <div class="skill-row"><strong>Tools:</strong> Git/GitHub, Power BI, Excel, Jira, Postman, VS Code, Jupyter</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Projects</div>
+
+    <div style="margin-bottom:10px">
+      <div class="project-title">FYP — Cybersecurity Virtual Assistant &nbsp;<span style="font-weight:400;color:#64748b;font-size:10pt">(Python, FastAPI, LLM, OCR, Scikit-learn)</span></div>
+      <ul>
+        <li>Built an LLM-powered chatbot that answers cybersecurity threat queries via natural language prompts.</li>
+        <li>Integrated OCR functionality to extract and analyze text from cybersecurity-related screenshots.</li>
+        <li>Developed scalable FastAPI backend to serve inference workflows and support concurrent users.</li>
+        <li>Secured 5th position at IEEE YESIST12 Final Year Project Ideas Submission Competition.</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom:10px">
+      <div class="project-title">Cancer Risk Analysis &nbsp;<span style="font-weight:400;color:#64748b;font-size:10pt">(Python, Pandas, Scikit-learn)</span></div>
+      <ul>
+        <li>Performed end-to-end data preprocessing, EDA, and feature engineering on healthcare datasets.</li>
+        <li>Built and evaluated classification models for cancer risk prediction with performance benchmarking.</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom:10px">
+      <div class="project-title">Coffee Shop Performance Dashboard &nbsp;<span style="font-weight:400;color:#64748b;font-size:10pt">(Power BI, Excel)</span></div>
+      <ul>
+        <li>Developed an interactive Power BI dashboard tracking sales KPIs, customer behavior, and operational trends.</li>
+      </ul>
+    </div>
+
+    <div style="margin-bottom:10px">
+      <div class="project-title">Cookie Company Sales Analysis &nbsp;<span style="font-weight:400;color:#64748b;font-size:10pt">(Excel)</span></div>
+      <ul>
+        <li>Analyzed sales data using pivot tables and charts to surface actionable business insights.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Education</div>
+    <div class="edu-row">
+      <div>
+        <div class="edu-org">Karachi University (UBIT)</div>
+        <div class="edu-deg">Bachelor of Science — Software Engineering (BS SE)</div>
+      </div>
+      <div class="edu-date">2021 &ndash; 2025</div>
+    </div>
+    <div style="font-size:10pt;color:#64748b;margin-top:3px">
+      Key Areas: OOP, DSA, Machine Learning, Deep Learning, Calculus, Linear Algebra, Database Systems
+    </div>
+
+    <div class="edu-row" style="margin-top:10px">
+      <div>
+        <div class="edu-org">Intermediate — Pre-Engineering</div>
+        <div class="edu-deg">Maths, Physics, Computer Science</div>
+      </div>
+      <div class="edu-date">2020</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Certifications</div>
+    <div class="cert-row"><span class="cert-name">AI, Machine Learning, Deep Learning &amp; Communication — NAVTTC Program</span><span class="cert-date">Feb–May 2026</span></div>
+    <div class="cert-row"><span class="cert-name">SQL for Data Analytics — SimpliLearn</span><span class="cert-date">May 2025</span></div>
+    <div class="cert-row"><span class="cert-name">Business Analytics using Excel — SimpliLearn</span><span class="cert-date">Jan 2024</span></div>
+    <div class="cert-row"><span class="cert-name">Web Development using PHP &amp; Laravel — Aptech</span><span class="cert-date">Feb 2022</span></div>
+    <div class="cert-row"><span class="cert-name">Responsive Web Development — Aptech</span><span class="cert-date">Feb 2022</span></div>
+    <div class="cert-row"><span class="cert-name">Python In-depth Course for Beginners — Udemy</span><span class="cert-date">May 2021</span></div>
+  </section>
+
+  <section>
+    <div class="section-title">Achievements</div>
+    <div class="ach-title">5th Position — IEEE YESIST12 International Competition</div>
+    <ul>
+      <li>Secured 5th position in the IEEE YESIST12 Final Year Project Ideas Submission Competition for the project "CyberSecurity Virtual Assistant" and received a participation certificate.</li>
+    </ul>
+  </section>
+
+  <div style="text-align:center;margin-top:24px;font-size:9pt;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:8px">
+    To save as PDF: File → Print → Save as PDF &nbsp;|&nbsp; ar-datafolio.netlify.app
+  </div>
+
+</body>
+</html>

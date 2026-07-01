@@ -3,7 +3,8 @@ import { motion, AnimatePresence, useScroll, useTransform, useInView } from "fra
 import { 
   Database, LineChart, Server, Cpu, BrainCircuit, 
   Terminal, Code2, GraduationCap, Trophy, ChevronRight, 
-  Mail, Github, Linkedin, ExternalLink, Activity, Network
+  Mail, Github, Linkedin, ExternalLink, Activity, Network,
+  Download, FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -96,6 +97,7 @@ export default function Home() {
           <a href="#skills" className="hover:text-primary transition-colors">/skills</a>
           <a href="#projects" className="hover:text-primary transition-colors">/projects</a>
           <a href="#education" className="hover:text-primary transition-colors">/edu</a>
+          <a href="#resumes" className="hover:text-primary transition-colors">/resumes</a>
           <Button variant="outline" size="sm" className="font-mono text-xs border-primary/30 hover:border-primary hover:bg-primary/10" asChild>
             <a href="#contact">INITIALIZE_CONTACT</a>
           </Button>
@@ -162,8 +164,10 @@ export default function Home() {
                   View Projects <ChevronRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
-              <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/5 font-mono">
-                <Terminal className="mr-2 h-4 w-4" /> Download Resume
+              <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/5 font-mono" asChild>
+                <a href="#resumes">
+                  <FileText className="mr-2 h-4 w-4" /> View Resumes
+                </a>
               </Button>
             </motion.div>
           </div>
@@ -472,6 +476,105 @@ export default function Home() {
             </div>
           </motion.div>
 
+        </div>
+      </section>
+
+      {/* RESUMES SECTION */}
+      <section id="resumes" className="py-24 relative z-10">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="text-sm font-mono text-primary mb-2 uppercase tracking-widest">// Role_Specific_Builds</h2>
+            <h3 className="text-3xl md:text-5xl font-bold">Download Resume</h3>
+            <p className="text-muted-foreground mt-3 text-base font-light max-w-xl">Each resume is tailored for a specific role — pick the one that matches the opportunity.</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                role: "ML / AI Engineer",
+                desc: "Focused on machine learning pipelines, LLM applications, FastAPI backends, and deep learning fundamentals.",
+                tags: ["Python", "Scikit-learn", "FastAPI", "LLMs", "OCR"],
+                file: "/resume-ml-ai-engineer.pdf",
+                color: "from-violet-500/20 to-primary/10",
+                border: "border-violet-500/30 hover:border-violet-500/60",
+                iconColor: "text-violet-400",
+              },
+              {
+                role: "Data Analyst",
+                desc: "Highlights EDA, data preprocessing, Power BI dashboards, and SQL — built for analytics-first teams.",
+                tags: ["SQL", "Power BI", "Pandas", "EDA", "Excel"],
+                file: "/resume-data-analyst.pdf",
+                color: "from-primary/20 to-cyan-500/10",
+                border: "border-primary/30 hover:border-primary/60",
+                iconColor: "text-primary",
+              },
+              {
+                role: "Business Analyst",
+                desc: "Showcases eCommerce platform experience, requirements gathering, Jira, and stakeholder collaboration.",
+                tags: ["Jira", "HubSpot", "Figma", "Agile", "Klaviyo"],
+                file: "/resume-business-analyst.pdf",
+                color: "from-emerald-500/20 to-teal-500/10",
+                border: "border-emerald-500/30 hover:border-emerald-500/60",
+                iconColor: "text-emerald-400",
+              },
+              {
+                role: "Software Engineer",
+                desc: "Full-stack and backend focus — OOP, DSA, FastAPI, PHP/Laravel, REST APIs, and software design.",
+                tags: ["Python", "FastAPI", "PHP", "Laravel", "OOP", "DSA"],
+                file: "/resume-software-engineer.html",
+                color: "from-amber-500/20 to-orange-500/10",
+                border: "border-amber-500/30 hover:border-amber-500/60",
+                iconColor: "text-amber-400",
+                isHtml: true,
+              },
+            ].map((resume, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative"
+              >
+                <div className={`absolute -inset-0.5 rounded-2xl bg-gradient-to-br ${resume.color} blur opacity-0 group-hover:opacity-100 transition duration-500`} />
+                <div className={`relative h-full bg-background border ${resume.border} rounded-2xl p-6 flex flex-col transition-colors`}>
+                  <div className={`p-3 rounded-xl bg-white/5 border border-white/10 w-fit mb-4 ${resume.iconColor}`}>
+                    <FileText className="w-6 h-6" />
+                  </div>
+                  <h4 className="font-bold text-white text-lg mb-2 group-hover:text-primary transition-colors">{resume.role}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-grow">{resume.desc}</p>
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {resume.tags.map((tag, j) => (
+                      <span key={j} className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60">{tag}</span>
+                    ))}
+                  </div>
+                  {resume.isHtml ? (
+                    <a
+                      href={resume.file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border ${resume.border} text-sm font-mono text-white/80 hover:text-white bg-white/5 hover:bg-white/10 transition-all`}
+                    >
+                      <ExternalLink className="w-4 h-4" /> Open &amp; Print to PDF
+                    </a>
+                  ) : (
+                    <a
+                      href={resume.file}
+                      download
+                      className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border ${resume.border} text-sm font-mono text-white/80 hover:text-white bg-white/5 hover:bg-white/10 transition-all`}
+                    >
+                      <Download className="w-4 h-4" /> Download PDF
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
