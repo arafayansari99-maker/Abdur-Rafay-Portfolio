@@ -4,7 +4,7 @@ import {
   Database, LineChart, Server, Cpu, BrainCircuit, 
   Terminal, Code2, GraduationCap, Trophy, ChevronRight, 
   Mail, Github, Linkedin, ExternalLink, Activity, Network,
-  Download, FileText, Menu, X
+  Download, FileText, Menu, X, Bot, BarChart3, Briefcase, FlaskConical
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -428,20 +428,73 @@ export default function Home() {
       </section>
 
       {/* TARGET ROLES - Visual Segment */}
-      <section className="py-16 relative z-10 overflow-hidden bg-primary/5 border-y border-primary/20">
+      <section className="py-20 relative z-10 overflow-hidden bg-primary/5 border-y border-primary/20">
          <div className="max-w-6xl mx-auto px-6 relative">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="md:w-1/3">
-                 <h2 className="text-2xl font-bold font-mono text-primary mb-2">TARGET_VECTORS</h2>
-                 <p className="text-muted-foreground text-sm">Configured and optimized for high-impact analytical & engineering roles.</p>
-              </div>
-              <div className="md:w-2/3 flex flex-wrap gap-3 justify-end">
-                {["Data Analyst", "Business Analyst", "Data Scientist", "ML Engineer", "AI Engineer"].map((role, i) => (
-                  <Badge key={i} variant="outline" className="px-4 py-2 text-sm bg-background/80 border-primary/30 text-white font-mono hover:bg-primary/20 transition-colors">
-                    {role}
-                  </Badge>
-                ))}
-              </div>
+            <div className="mb-12 text-center">
+              <h2 className="text-2xl font-bold font-mono text-primary mb-2">TARGET_VECTORS</h2>
+              <p className="text-muted-foreground text-sm">Configured and optimized for high-impact analytical & engineering roles.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[
+                {
+                  role: "Data Analyst",
+                  icon: BarChart3,
+                  color: "from-cyan-500/20 to-cyan-500/5 border-cyan-500/30",
+                  iconColor: "text-cyan-400",
+                  skills: ["SQL", "Python", "Tableau", "Power BI", "Excel", "Data Wrangling"],
+                },
+                {
+                  role: "Business Analyst",
+                  icon: Briefcase,
+                  color: "from-emerald-500/20 to-emerald-500/5 border-emerald-500/30",
+                  iconColor: "text-emerald-400",
+                  skills: ["Requirements Analysis", "Process Mapping", "KPI Reporting", "Stakeholder Mgmt", "Agile", "Documentation"],
+                },
+                {
+                  role: "Data Scientist",
+                  icon: FlaskConical,
+                  color: "from-violet-500/20 to-violet-500/5 border-violet-500/30",
+                  iconColor: "text-violet-400",
+                  skills: ["Statistics", "Python", "Scikit-learn", "Pandas", "NumPy", "Jupyter"],
+                },
+                {
+                  role: "ML Engineer",
+                  icon: Cpu,
+                  color: "from-orange-500/20 to-orange-500/5 border-orange-500/30",
+                  iconColor: "text-orange-400",
+                  skills: ["TensorFlow", "PyTorch", "Model Training", "CNN", "NLP", "MLOps"],
+                },
+                {
+                  role: "AI Engineer",
+                  icon: Bot,
+                  color: "from-primary/20 to-primary/5 border-primary/30",
+                  iconColor: "text-primary",
+                  skills: ["LLMs", "LangChain", "Prompt Engineering", "RAG", "FastAPI", "AI Pipelines"],
+                },
+              ].map(({ role, icon: Icon, color, iconColor, skills }, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className={`group relative rounded-xl border bg-gradient-to-br ${color} p-5 hover:scale-[1.02] transition-transform duration-300`}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`p-2 rounded-lg bg-background/40 ${iconColor}`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold font-mono text-white text-sm">{role}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {skills.map((skill, j) => (
+                      <span key={j} className="text-xs font-mono px-2 py-0.5 rounded bg-background/50 text-muted-foreground border border-white/10">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
             </div>
          </div>
       </section>
