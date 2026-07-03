@@ -475,7 +475,7 @@ export default function Home() {
                 badge: "Live App",
                 badgeColor: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10",
                 github: "https://github.com/arafayansari99-maker/Resume-Buildr",
-                demo: "https://resume-buildr-resume-screener.vercel.app",
+                demo: "https://resume-buildr--arafayansari99.replit.app/dashboard",
                 icon: Code2,
               },
               {
