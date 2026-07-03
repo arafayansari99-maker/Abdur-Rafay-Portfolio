@@ -12,6 +12,119 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+// --- ContactForm ---
+
+type FormState = "idle" | "sending" | "success" | "error";
+
+function ContactForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [formState, setFormState] = useState<FormState>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormState("sending");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch(`${import.meta.env.BASE_URL}api/contact`.replace(/\/+/g, "/").replace(":/", "://"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error((data as { error?: string }).error ?? "Failed to send.");
+      }
+
+      setFormState("success");
+      setName(""); setEmail(""); setMessage("");
+    } catch (err) {
+      setFormState("error");
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    }
+  };
+
+  if (formState === "success") {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex flex-col items-center justify-center gap-4 py-12 text-center"
+      >
+        <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
+          <Terminal className="w-8 h-8 text-primary" />
+        </div>
+        <h3 className="text-xl font-bold font-mono text-white">TRANSMISSION_SENT</h3>
+        <p className="text-muted-foreground text-sm">Message received. Will respond shortly.</p>
+        <Button
+          variant="outline"
+          className="font-mono text-xs border-primary/30 hover:bg-primary/10 mt-2"
+          onClick={() => setFormState("idle")}
+        >
+          SEND_ANOTHER
+        </Button>
+      </motion.div>
+    );
+  }
+
+  return (
+    <form className="space-y-6" onSubmit={handleSubmit}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label className="text-xs font-mono text-muted-foreground uppercase">Sender_Name</label>
+          <Input
+            placeholder="John Doe"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            disabled={formState === "sending"}
+            className="bg-background/50 border-white/10 focus-visible:ring-primary"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-mono text-muted-foreground uppercase">Reply_Address</label>
+          <Input
+            placeholder="john@company.com"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={formState === "sending"}
+            className="bg-background/50 border-white/10 focus-visible:ring-primary"
+          />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <label className="text-xs font-mono text-muted-foreground uppercase">Payload</label>
+        <Textarea
+          placeholder="How can I help you?"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          required
+          disabled={formState === "sending"}
+          className="min-h-[120px] bg-background/50 border-white/10 focus-visible:ring-primary"
+        />
+      </div>
+      {formState === "error" && (
+        <p className="text-red-400 text-xs font-mono bg-red-400/10 border border-red-400/20 rounded px-3 py-2">
+          ERROR: {errorMsg}
+        </p>
+      )}
+      <Button
+        type="submit"
+        disabled={formState === "sending"}
+        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-mono text-sm py-6 disabled:opacity-50"
+      >
+        {formState === "sending" ? "TRANSMITTING..." : "TRANSMIT_MESSAGE"}
+      </Button>
+    </form>
+  );
+}
+
 // --- Subcomponents ---
 
 const AnimatedText = ({ texts }: { texts: string[] }) => {
@@ -815,25 +928,7 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="glass-panel p-8 md:p-12 rounded-2xl max-w-2xl mx-auto border-white/10 text-left mb-16"
             >
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-muted-foreground uppercase">Sender_Name</label>
-                    <Input placeholder="John Doe" className="bg-background/50 border-white/10 focus-visible:ring-primary" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-muted-foreground uppercase">Reply_Address</label>
-                    <Input placeholder="john@company.com" type="email" className="bg-background/50 border-white/10 focus-visible:ring-primary" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-mono text-muted-foreground uppercase">Payload</label>
-                  <Textarea placeholder="How can I help you?" className="min-h-[120px] bg-background/50 border-white/10 focus-visible:ring-primary" />
-                </div>
-                <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-mono text-sm py-6">
-                  TRANSMIT_MESSAGE
-                </Button>
-              </form>
+              <ContactForm />
             </motion.div>
 
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12 md:gap-16 pt-8 border-t border-white/5">
