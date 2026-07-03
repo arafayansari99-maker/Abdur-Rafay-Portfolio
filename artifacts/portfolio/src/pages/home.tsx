@@ -696,8 +696,8 @@ export default function Home() {
               },
               {
                 role: "Software Engineer",
-                desc: "Full-stack and backend focus — OOP, DSA, FastAPI, PHP/Laravel, REST APIs, and software design.",
-                tags: ["Python", "FastAPI", "PHP", "Laravel", "OOP", "DSA"],
+                desc: "Covers OOP, DSA, ML/DL fundamentals, FastAPI backends, Python, and full-stack foundations — built for software engineering and dev roles.",
+                tags: ["Python", "FastAPI", "OOP", "DSA", "ML", "TensorFlow", "HTML/CSS"],
                 file: "/resume-software-engineer.pdf",
                 color: "from-amber-500/20 to-orange-500/10",
                 border: "border-amber-500/30 hover:border-amber-500/60",
