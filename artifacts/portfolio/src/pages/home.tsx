@@ -678,8 +678,8 @@ export default function Home() {
               },
               {
                 role: "Data Analyst",
-                desc: "Highlights EDA, data preprocessing, Power BI dashboards, and SQL — built for analytics-first teams.",
-                tags: ["SQL", "Power BI", "Pandas", "EDA", "Excel"],
+                desc: "Covers EDA, data preprocessing, ETL, ML fundamentals, Power BI dashboards, SQL, and NLP — built for analytics-first and data science teams.",
+                tags: ["Python", "SQL", "Pandas", "Power BI", "EDA", "Scikit-learn", "NLP"],
                 file: "/resume-data-analyst.pdf",
                 color: "from-primary/20 to-cyan-500/10",
                 border: "border-primary/30 hover:border-primary/60",
