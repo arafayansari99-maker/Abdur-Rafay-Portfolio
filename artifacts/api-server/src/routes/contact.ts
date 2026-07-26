@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { ReplitConnectors } from "@replit/connectors-sdk";
+import { Resend } from "resend";
 import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
@@ -21,10 +21,17 @@ router.post("/contact", async (req, res) => {
     return;
   }
 
-  try {
-    const connectors = new ReplitConnectors();
+  const apiKey = process.env["RESEND_API_KEY"];
+  if (!apiKey) {
+    logger.error("RESEND_API_KEY is not set");
+    res.status(500).json({ error: "Email service is not configured." });
+    return;
+  }
 
-    const payload = {
+  try {
+    const resend = new Resend(apiKey);
+
+    const { error } = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: ["a.rafayansari99@gmail.com"],
       reply_to: email.trim(),
@@ -41,17 +48,10 @@ router.post("/contact", async (req, res) => {
           <p style="color:#fff;white-space:pre-wrap;margin:0">${message.trim()}</p>
         </div>
       `,
-    };
-
-    const response = await connectors.proxy("resend", "/emails", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
     });
 
-    if (!response.ok) {
-      const text = await response.text();
-      logger.error({ status: response.status, body: text }, "Resend API error");
+    if (error) {
+      logger.error({ error }, "Resend API error");
       res.status(502).json({ error: "Failed to send email. Please try again." });
       return;
     }
