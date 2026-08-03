@@ -170,7 +170,7 @@ For opportunities, collaborations, or inquiries, feel free to connect with Abdur
 - Email: a.rafayansari99@gmail.com
 - GitHub: https://github.com/arafayansari99-maker
 - LinkedIn: https://www.linkedin.com/in/abdur-rafay-1x/
-- Portfolio: https://abdur-rafay-portfolio.vercel.app/
+- Portfolio: (https://abdur-rafay-data-portfolio.vercel.app/)
 
 ## Final note
 
