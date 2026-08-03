@@ -1,4 +1,4 @@
-import express, { type NextFunction, type Request, type Response } from "express";
+import express from "express";
 import cors from "cors";
 import router from "./routes/index.js";
 import { logger } from "./lib/logger.js";
@@ -24,7 +24,7 @@ const corsOptions = allowedOrigins.includes("*")
       credentials: true,
     };
 
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req: any, res: any, next: any) => {
   logger.info({
     method: req.method,
     url: req.originalUrl?.split("?")[0],
