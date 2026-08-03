@@ -36,6 +36,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    ok: true,
+    message: "API is running",
+    routes: ["/healthz", "/api/healthz", "/api/contact"],
+  });
+});
+
 app.use("/api", router);
 
 export default app;
