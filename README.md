@@ -1,25 +1,25 @@
 ﻿# Abdur Rafay Portfolio
 
-This portfolio is a personal project built by a fresher student, Abdur Rafay, to showcase his learning, work, and growth in the field of data, AI, and software development. It reflects his journey from a beginner to a motivated learner who is actively building projects, developing technical skills, and preparing for real-world opportunities in technology.
+This portfolio is a personal project built by a fresher student, Abdur Rafay, to showcase my learning, work, and growth in the field of data, AI, and software development. It reflects my journey from a beginner to a motivated learner who is actively building projects, developing technical skills, and preparing for real-world opportunities in technology.
 
 ## Who is this portfolio for?
 
-This README is written to introduce Abdur Rafay as a fresher student and explain:
-- what he has done so far
-- what skills he has developed
-- which projects he has worked on
-- what his goals are
+This README is written to introduce me as a fresher student and explain:
+- what I have done so far
+- what skills do I have developed
+- which projects have I worked on
+- what my goals are
 - how this portfolio project was built
 
 ## About Abdur Rafay
 
-Abdur Rafay is a student interested in data analysis, machine learning, AI engineering, and software development. He is someone who enjoys learning by building, solving problems, and turning ideas into practical projects. He is especially focused on understanding real-world data, building impactful tools, and improving his skills in coding, analytics, and AI-driven systems.
+I'm a student interested in data analysis, machine learning, AI engineering, and software development. I'm someone who enjoys learning by building, solving problems, and turning ideas into practical projects. Especially focused on understanding real-world data, building impactful tools, and improving his skills in coding, analytics, and AI-driven systems.
 
-He is a fresher who is not only learning theory but also creating hands-on work to strengthen his portfolio and prepare for professional opportunities.
+I'm a fresher who is not only learning theory but also creating hands-on work to strengthen my portfolio and prepare for professional opportunities.
 
-## What he has done
+## What I have done
 
-Abdur Rafay has worked on building projects that combine technical learning with practical problem-solving. He has explored areas such as:
+I've worked on building projects that combine technical learning with practical problem-solving. Explored areas such as:
 - data cleaning and analysis
 - exploratory data analysis
 - machine learning workflows
@@ -27,11 +27,11 @@ Abdur Rafay has worked on building projects that combine technical learning with
 - frontend development and user-facing interfaces
 - backend APIs and integration logic
 
-He has built solutions that help demonstrate his understanding of both technical skills and product thinking. His work reflects effort in areas like writing clean code, structuring projects logically, and creating digital experiences that communicate value clearly.
+I've built solutions that help demonstrate my understanding of both technical skills and product thinking. My work reflects effort in areas like writing clean code, structuring projects logically, and creating digital experiences that communicate value clearly.
 
-## Skills he has
+## Skills I have
 
-Abdur Rafay is building a strong foundation in a mix of technical and problem-solving skills, including:
+I'm building a strong foundation in a mix of technical and problem-solving skills, including:
 
 ### Technical skills
 - Python for data analysis and scripting
@@ -54,9 +54,9 @@ Abdur Rafay is building a strong foundation in a mix of technical and problem-so
 - communication and presentation
 - consistency and improvement mindset
 
-## Projects he has done
+## Projects I've done
 
-This portfolio itself is one of his major projects. It demonstrates his ability to design, develop, and present his work in a professional way. The project includes:
+This portfolio itself is one of my major projects. It demonstrates his ability to design, develop, and present my work in a professional way. The project includes:
 
 - a modern responsive portfolio website
 - structured sections for experience, skills, and projects
@@ -65,25 +65,25 @@ This portfolio itself is one of his major projects. It demonstrates his ability 
 - backend support for contact form submissions through an Express server
 - a monorepo setup for maintainability and scalability
 
-He has also worked on or is interested in projects related to:
+I've also worked on or interested in projects related to:
 - data analysis dashboards
 - predictive modeling and ML experiments
 - AI-powered tools and automation
 - full stack web applications
 - data-driven portfolio showcases
 
-These projects help him translate learning into practical outputs while preparing for internships, freelance work, and full-time roles in tech.
+These projects help me translate learning into practical outputs while preparing for internships, freelance work, and full-time roles in tech.
 
-## What he aims for
+## What I'm aiming for
 
-Abdur Rafay aims to grow into a capable technology professional who can work at the intersection of data, AI, and product development. His goal is to:
+I aims to grow into a capable technology professional who can work at the intersection of data, AI, and product development. My goal is to:
 - strengthen his technical foundation in coding and engineering
 - build more impactful real-world projects
 - learn advanced tools in machine learning and AI
 - improve his ability to solve business and user problems
 - work in environments where he can contribute, learn, and grow with a team
 
-He is focused on becoming a valuable developer who can combine analytical thinking, creativity, and execution.
+I'm focused on becoming a valuable developer who can combine analytical thinking, creativity, and execution.
 
 ## Stack used in this project
 
