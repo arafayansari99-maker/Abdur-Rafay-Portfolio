@@ -1,8 +1,8 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { Resend } from "resend";
 import { logger } from "../lib/logger.js";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.post("/contact", async (req, res) => {
   const { name, email, message } = req.body as {
