@@ -56,7 +56,7 @@ I'm building a strong foundation in a mix of technical and problem-solving skill
 
 ## Projects I've done
 
-This portfolio itself is one of my major projects. It demonstrates his ability to design, develop, and present my work in a professional way. The project includes:
+This portfolio itself is one of my major projects. It demonstrates my ability to design, develop, and present my work in a professional way. The project includes:
 
 - a modern responsive portfolio website
 - structured sections for experience, skills, and projects
@@ -65,7 +65,27 @@ This portfolio itself is one of my major projects. It demonstrates his ability t
 - backend support for contact form submissions through an Express server
 - a monorepo setup for maintainability and scalability
 
-I've also worked on or interested in projects related to:
+### Featured projects
+
+1. Resume Buildr  
+   GitHub: https://github.com/arafayansari99-maker/Resume-Buildr  
+   Live Demo: https://resume-buildr--arafayansari99.replit.app/dashboard  
+   Description: An AI-powered resume builder and screener built with TypeScript to help users create, edit, and review professional resumes.
+
+2. Email Threat Analyzer  
+   GitHub: https://github.com/arafayansari99-maker/Email-Threat-Analyzer  
+   Live Demo: https://email-threat-analyzer-beryl.vercel.app  
+   Description: A JavaScript-based email security analyzer designed to detect phishing patterns and suspicious content using text analysis techniques.
+
+3. CyberSecurity Virtual Assistant  
+   GitHub: https://github.com/arafayansari99-maker/-FYP-CyberSecurity-Virtual-Assistant  
+   Description: Final year project focused on an LLM-powered cybersecurity assistant with OCR-based screenshot analysis and a FastAPI chatbot backend.
+
+4. Cat vs Dog Image Classifier  
+   GitHub: https://github.com/arafayansari99-maker/-Cat-Dog-Image-Classification-with-CNN  
+   Description: A deep learning model trained on cat and dog images using CNNs to classify images accurately and demonstrate hands-on ML workflow skills.
+
+I have also worked on or am interested in projects related to:
 - data analysis dashboards
 - predictive modeling and ML experiments
 - AI-powered tools and automation
@@ -76,12 +96,12 @@ These projects help me translate learning into practical outputs while preparing
 
 ## What I'm aiming for
 
-I aims to grow into a capable technology professional who can work at the intersection of data, AI, and product development. My goal is to:
-- strengthen his technical foundation in coding and engineering
+I aim to grow into a capable technology professional who can work at the intersection of data, AI, and product development. My goal is to:
+- strengthen my technical foundation in coding and engineering
 - build more impactful real-world projects
 - learn advanced tools in machine learning and AI
-- improve his ability to solve business and user problems
-- work in environments where he can contribute, learn, and grow with a team
+- improve my ability to solve business and user problems
+- work in environments where I can contribute, learn, and grow with a team
 
 I'm focused on becoming a valuable developer who can combine analytical thinking, creativity, and execution.
 
@@ -145,10 +165,12 @@ pnpm run typecheck
 
 ## Contact
 
-For opportunities, collaborations, or inquiries:
+For opportunities, collaborations, or inquiries, feel free to connect with Abdur Rafay:
+
 - Email: a.rafayansari99@gmail.com
 - GitHub: https://github.com/arafayansari99-maker
-- LinkedIn: https://www.linkedin.com/in/abdur-rafay
+- LinkedIn: https://www.linkedin.com/in/abdur-rafay-1x/
+- Portfolio: https://abdur-rafay-portfolio.vercel.app/
 
 ## Final note
 
