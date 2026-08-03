@@ -19,6 +19,8 @@ async function buildAll() {
     platform: "node",
     bundle: true,
     format: "esm",
+    packages: "external",
+    minify: true,
     outdir: distDir,
     outExtension: { ".js": ".mjs" },
     logLevel: "info",
@@ -101,7 +103,7 @@ async function buildAll() {
       "puppeteer-core",
       "electron",
     ],
-    sourcemap: "linked",
+    sourcemap: false,
     plugins: [
       // pino relies on workers to handle logging, instead of externalizing it we use a plugin to handle it
       esbuildPluginPino({ transports: ["pino-pretty"] })
