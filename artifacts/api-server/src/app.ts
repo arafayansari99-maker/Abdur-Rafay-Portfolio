@@ -1,9 +1,10 @@
-import express, { type Express, type Request, type Response, type NextFunction } from "express";
+import express from "express";
+import type { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import router from "./routes/index.js";
 import { logger } from "./lib/logger.js";
 
-const app: Express = express();
+const app: Application = express();
 
 const allowedOrigins = (process.env["CORS_ORIGIN"] ?? process.env["ALLOWED_ORIGINS"] ?? "*")
   .split(",")
