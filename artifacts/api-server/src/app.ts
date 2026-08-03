@@ -6,6 +6,25 @@ import { logger } from "./lib/logger";
 
 const app: Express = express();
 
+const allowedOrigins = (process.env["CORS_ORIGIN"] ?? process.env["ALLOWED_ORIGINS"] ?? "*")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+const corsOptions = allowedOrigins.includes("*")
+  ? { origin: true, credentials: true }
+  : {
+      origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+          return;
+        }
+
+        callback(new Error("Not allowed by CORS"));
+      },
+      credentials: true,
+    };
+
 app.use(
   pinoHttp({
     logger,
@@ -25,7 +44,7 @@ app.use(
     },
   }),
 );
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

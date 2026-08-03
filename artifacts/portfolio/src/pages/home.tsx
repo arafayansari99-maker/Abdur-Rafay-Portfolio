@@ -35,7 +35,12 @@ function ContactForm() {
     setErrorMsg("");
 
     try {
-      const res = await fetch(`${import.meta.env.BASE_URL}api/contact`.replace(/\/+/g, "/").replace(":/", "://"), {
+      const apiBaseUrl = (
+        import.meta.env.VITE_API_URL ||
+        (import.meta.env.DEV ? "http://localhost:5000" : window.location.origin)
+      ).replace(/\/$/, "");
+
+      const res = await fetch(`${apiBaseUrl}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),
