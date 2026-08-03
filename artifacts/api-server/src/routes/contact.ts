@@ -1,10 +1,15 @@
-import { Router } from "express";
+import { Router, type Request } from "express";
 import { Resend } from "resend";
 import { logger } from "../lib/logger.js";
 
+type JsonResponse = {
+  status(code: number): JsonResponse;
+  json(body: unknown): unknown;
+};
+
 const router = Router();
 
-router.post("/contact", async (req, res) => {
+router.post("/contact", async (req: Request, res: JsonResponse) => {
   const { name, email, message } = req.body as {
     name?: unknown;
     email?: unknown;
