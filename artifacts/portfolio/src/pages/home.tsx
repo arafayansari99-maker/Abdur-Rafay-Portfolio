@@ -37,7 +37,7 @@ function ContactForm() {
     try {
       const apiBaseUrl = (
         import.meta.env.VITE_API_URL ||
-        (import.meta.env.DEV ? "http://localhost:5000" : window.location.origin)
+        (import.meta.env.DEV ? "http://localhost:5000" : "https://abdur-rafay-portfolio-api-server.vercel.app")
       ).replace(/\/$/, "");
 
       const res = await fetch(`${apiBaseUrl}/api/contact`, {
@@ -86,9 +86,11 @@ function ContactForm() {
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="text-xs font-mono text-muted-foreground uppercase">Sender_Name</label>
+          <label htmlFor="contact-name" className="text-xs font-mono text-muted-foreground uppercase">Sender_Name</label>
           <Input
+            id="contact-name"
             placeholder="John Doe"
+            maxLength={100}
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -97,10 +99,12 @@ function ContactForm() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-xs font-mono text-muted-foreground uppercase">Reply_Address</label>
+          <label htmlFor="contact-email" className="text-xs font-mono text-muted-foreground uppercase">Reply_Address</label>
           <Input
+            id="contact-email"
             placeholder="john@company.com"
             type="email"
+            maxLength={254}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -110,9 +114,11 @@ function ContactForm() {
         </div>
       </div>
       <div className="space-y-2">
-        <label className="text-xs font-mono text-muted-foreground uppercase">Payload</label>
+        <label htmlFor="contact-message" className="text-xs font-mono text-muted-foreground uppercase">Payload</label>
         <Textarea
+          id="contact-message"
           placeholder="How can I help you?"
+          maxLength={5000}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required

@@ -14,13 +14,23 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    title: "Athena: RAG University Assistant",
+    desc: "A university knowledge assistant that answers questions from PDFs, DOCX, and TXT documents with streamed responses, source citations, and confidence scores. Includes document management, chat history, and admin insights.",
+    stack: ["TypeScript", "React", "RAG", "Groq", "FastAPI", "PostgreSQL"],
+    badge: "LLM / RAG",
+    badgeColor: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10",
+    github: "https://github.com/arafayansari99-maker/RAG-University-Assistant",
+    demo: "https://rag-university-assistant-api-server-kappa.vercel.app/",
+    icon: BrainCircuit,
+  },
+  {
     title: "Resume Buildr",
     desc: "An AI-powered resume builder and screener built with TypeScript. Helps users create, edit, and screen resumes — with a live deployed app on Vercel.",
     stack: ["TypeScript", "React", "AI", "Vercel"],
     badge: "Live App",
     badgeColor: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10",
     github: "https://github.com/arafayansari99-maker/Resume-Buildr",
-    demo: "https://resume-buildr--arafayansari99.replit.app/dashboard",
+    demo: "https://resume-buildr-resume-screener.vercel.app/",
     icon: Code2,
   },
   {

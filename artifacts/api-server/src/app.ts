@@ -5,36 +5,38 @@ import { logger } from "./lib/logger.js";
 
 const app = express();
 
-const allowedOrigins = (process.env["CORS_ORIGIN"] ?? process.env["ALLOWED_ORIGINS"] ?? "*")
+if (process.env["VERCEL"]) {
+  app.set("trust proxy", 1);
+}
+
+const allowedOrigins = (process.env["CORS_ORIGIN"] ?? process.env["ALLOWED_ORIGINS"] ?? "https://abdur-rafay-data-portfolio.vercel.app,http://localhost:5173,http://127.0.0.1:5173")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
 
-const corsOptions = allowedOrigins.includes("*")
-  ? { origin: true, credentials: true }
-  : {
-      origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-          callback(null, true);
-          return;
-        }
+if (allowedOrigins.includes("*")) {
+  throw new Error("CORS origins must be explicitly listed; wildcard origins are not supported.");
+}
 
-        callback(new Error("Not allowed by CORS"));
-      },
-      credentials: true,
-    };
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
+    callback(null, !origin || allowedOrigins.includes(origin));
+  },
+};
 
-app.use((req: any, res: any, next: any) => {
-  logger.info({
-    method: req.method,
-    url: req.originalUrl?.split("?")[0],
-    statusCode: res.statusCode,
-  }, "request");
+app.use((req, res, next) => {
+  res.on("finish", () => {
+    logger.info({
+      method: req.method,
+      url: req.originalUrl.split("?")[0],
+      statusCode: res.statusCode,
+    }, "request");
+  });
   next();
 });
 app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "16kb" }));
+app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
 app.get("/", (_req, res) => {
   res.status(200).json({
