@@ -167,7 +167,7 @@ pnpm --filter @workspace/api-server run dev
 
 Do not commit the key or paste it into chat. The local API allows the portfolio dev server on port 3000. In the deployed API project, configure `RESEND_API_KEY` as a deployment secret and set `CORS_ORIGIN` to the exact portfolio origin (for example, `https://abdur-rafay-data-portfolio.vercel.app`). If the portfolio uses multiple origins, provide a comma-separated allowlist.
 
-The API's `vercel.json` explicitly selects Vercel's "Other" framework mode so the deployment uses the `api/index.ts` function handler instead of auto-detecting `src/app.ts` as a Node backend. This keeps the serverless handler and its declared runtime dependencies together in the deployed function.
+The API's `vercel.json` explicitly selects Vercel's "Other" framework mode. The JavaScript function entry at `api/index.js` loads the serverless handler compiled from `src/serverless.ts` during the API build, avoiding Vercel's standalone TypeScript analysis of the Express app.
 
 ### Full workspace setup
 

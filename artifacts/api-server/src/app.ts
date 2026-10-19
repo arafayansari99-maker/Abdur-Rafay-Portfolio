@@ -1,9 +1,9 @@
-import express, { type Application } from "express";
+import express from "express";
 import cors from "cors";
 import router from "./routes/index.js";
 import { logger } from "./lib/logger.js";
 
-const app: Application = express();
+const app = express();
 
 if (process.env["VERCEL"]) {
   app.set("trust proxy", 1);
