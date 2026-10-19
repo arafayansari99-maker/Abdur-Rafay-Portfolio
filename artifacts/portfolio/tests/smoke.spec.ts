@@ -13,9 +13,18 @@ test("page sections, project links, CV, and favicon are available", async ({ pag
   expect(resume.status()).toBe(200);
   expect(resume.headers()["content-type"]).toContain("application/pdf");
 
-  const favicon = await request.get("/favicon.png?v=2");
+  const favicon = await request.get("/favicon.png?v=3");
   expect(favicon.status()).toBe(200);
   expect(favicon.headers()["content-type"]).toContain("image/png");
+
+  const svgFavicon = await request.get("/favicon.svg?v=3");
+  expect(svgFavicon.status()).toBe(200);
+  expect(svgFavicon.headers()["content-type"]).toContain("image/svg+xml");
+  expect(await svgFavicon.text()).toContain("data:image/png;base64,");
+
+  const icoFavicon = await request.get("/favicon.ico?v=3");
+  expect(icoFavicon.status()).toBe(200);
+  expect(icoFavicon.headers()["content-type"]).toContain("image/");
 
   await page.evaluate(() => {
     const top = document.querySelector("#education")?.getBoundingClientRect().top ?? 0;
