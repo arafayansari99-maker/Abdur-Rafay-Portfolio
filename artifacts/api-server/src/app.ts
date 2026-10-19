@@ -1,9 +1,9 @@
-import express, { type NextFunction, type Request, type Response } from "express";
+import express, { type Application } from "express";
 import cors from "cors";
 import router from "./routes/index.js";
 import { logger } from "./lib/logger.js";
 
-const app = express();
+const app: Application = express();
 
 if (process.env["VERCEL"]) {
   app.set("trust proxy", 1);
@@ -24,7 +24,7 @@ const corsOptions = {
   },
 };
 
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req, res, next) => {
   res.on("finish", () => {
     logger.info({
       method: req.method,
@@ -38,7 +38,7 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
-app.get("/", (_req: Request, res: Response) => {
+app.get("/", (_req, res) => {
   res.status(200).json({
     ok: true,
     message: "API is running",
@@ -46,7 +46,7 @@ app.get("/", (_req: Request, res: Response) => {
   });
 });
 
-app.get("/favicon.ico", (_req: Request, res: Response) => {
+app.get("/favicon.ico", (_req, res) => {
   res.status(204).end();
 });
 
