@@ -20,7 +20,7 @@ export const PROJECTS: Project[] = [
     badge: "LLM / RAG",
     badgeColor: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10",
     github: "https://github.com/arafayansari99-maker/RAG-University-Assistant",
-    demo: "https://rag-university-assistant-api-server-kappa.vercel.app/",
+    demo: "https://athena-university-assistant.vercel.app/",
     icon: BrainCircuit,
   },
   {
@@ -35,12 +35,12 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Email Threat Analyzer",
-    desc: "A JavaScript application that analyzes emails for cybersecurity threats, phishing patterns, and malicious content — deployed live on Vercel.",
+    desc: "A JavaScript application that analyzes emails for cybersecurity threats, phishing patterns, and malicious content.",
     stack: ["JavaScript", "NLP", "Security", "Vercel"],
-    badge: "Live App",
-    badgeColor: "text-emerald-400 border-emerald-400/30 bg-emerald-400/10",
+    badge: "Source Available",
+    badgeColor: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10",
     github: "https://github.com/arafayansari99-maker/Email-Threat-Analyzer",
-    demo: "https://email-threat-analyzer-beryl.vercel.app",
+    demo: null,
     icon: BrainCircuit,
   },
   {

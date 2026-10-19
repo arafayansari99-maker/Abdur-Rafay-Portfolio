@@ -1,16 +1,15 @@
-import { Code2, BrainCircuit, LineChart, Database } from "lucide-react";
+import { Code2, Trophy, GraduationCap, Award } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export interface Stat {
   label: string;
-  value: number;
-  suffix: string;
+  value: string;
   icon: LucideIcon;
 }
 
 export const STATS: Stat[] = [
-  { label: "Lines of Code",    value: 150, suffix: "K+", icon: Code2 },
-  { label: "Models Trained",   value: 42,  suffix: "",   icon: BrainCircuit },
-  { label: "Dashboards Built", value: 18,  suffix: "",   icon: LineChart },
-  { label: "Coffee Consumed",  value: 999, suffix: "+",  icon: Database },
+  { label: "Featured Projects", value: "05", icon: Code2 },
+  { label: "Certifications", value: "05", icon: Trophy },
+  { label: "Degree", value: "B.S.E.", icon: GraduationCap },
+  { label: "IEEE YESIST12", value: "5th Place", icon: Award },
 ];

@@ -10,6 +10,7 @@ export interface Certification {
   provider: string;
   date: string;
   img: string;
+  thumbnail: string;
 }
 
 export const DEGREES: Degree[] = [
@@ -30,9 +31,9 @@ export const DEGREES: Degree[] = [
 ];
 
 export const CERTIFICATIONS: Certification[] = [
-  { title: "SQL for Data Analysis",          provider: "Simplilearn SkillUp",       date: "May 2025", img: "/cert-sql.jpg" },
-  { title: "Business Analytics with Excel",  provider: "Simplilearn SkillUp",       date: "Jan 2024", img: "/cert-business-analytics.jpg" },
-  { title: "Python For Beginners In-Depth",  provider: "Udemy",                     date: "May 2021", img: "/cert-python.jpg" },
-  { title: "Responsive Web Development",     provider: "Aptech Computer Education", date: "Feb 2022", img: "/cert-web-dev.jpeg" },
-  { title: "Web Dev with PHP & Laravel",     provider: "Aptech Computer Education", date: "Feb 2022", img: "/cert-php-laravel.jpeg" },
+  { title: "SQL for Data Analysis", provider: "Simplilearn SkillUp", date: "May 2025", img: "/cert-sql.jpg", thumbnail: "/cert-sql-thumb.jpg" },
+  { title: "Business Analytics with Excel", provider: "Simplilearn SkillUp", date: "Jan 2024", img: "/cert-business-analytics.jpg", thumbnail: "/cert-business-analytics-thumb.jpg" },
+  { title: "Python For Beginners In-Depth", provider: "Udemy", date: "May 2021", img: "/cert-python.jpg", thumbnail: "/cert-python-thumb.jpg" },
+  { title: "Responsive Web Development", provider: "Aptech Computer Education", date: "Feb 2022", img: "/cert-web-dev.jpeg", thumbnail: "/cert-web-dev-thumb.jpg" },
+  { title: "Web Dev with PHP & Laravel", provider: "Aptech Computer Education", date: "Feb 2022", img: "/cert-php-laravel.jpeg", thumbnail: "/cert-php-laravel-thumb.jpg" },
 ];

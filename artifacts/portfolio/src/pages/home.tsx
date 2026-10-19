@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useInView } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence, MotionConfig, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import {
   Terminal, GraduationCap, Trophy, ChevronRight,
   Mail, Github, Linkedin, ExternalLink, Activity,
@@ -65,6 +65,8 @@ function ContactForm() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="flex flex-col items-center justify-center gap-4 py-12 text-center"
+        role="status"
+        aria-live="polite"
       >
         <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
           <Terminal className="w-8 h-8 text-primary" />
@@ -127,7 +129,7 @@ function ContactForm() {
         />
       </div>
       {formState === "error" && (
-        <p className="text-red-400 text-xs font-mono bg-red-400/10 border border-red-400/20 rounded px-3 py-2">
+        <p role="alert" className="text-red-400 text-xs font-mono bg-red-400/10 border border-red-400/20 rounded px-3 py-2">
           ERROR: {errorMsg}
         </p>
       )}
@@ -146,23 +148,26 @@ function ContactForm() {
 
 const AnimatedText = ({ texts }: { texts: string[] }) => {
   const [index, setIndex] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    if (shouldReduceMotion) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % texts.length);
     }, 3000);
     return () => clearInterval(timer);
-  }, [texts]);
+  }, [shouldReduceMotion, texts]);
 
   return (
     <div className="h-[40px] md:h-[60px] overflow-hidden relative">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
-          initial={{ y: 40, opacity: 0 }}
+          data-testid="animated-role"
+          initial={shouldReduceMotion ? false : { y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -40, opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          exit={shouldReduceMotion ? undefined : { y: -40, opacity: 0 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: "easeInOut" }}
           className="absolute inset-0 flex items-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary font-bold text-3xl md:text-5xl"
         >
           {texts[index]}
@@ -170,34 +175,6 @@ const AnimatedText = ({ texts }: { texts: string[] }) => {
       </AnimatePresence>
     </div>
   );
-};
-
-const AnimatedNumber = ({ value, duration = 2 }: { value: number, duration?: number }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  useEffect(() => {
-    if (!isInView) return;
-    let start = 0;
-    const end = value;
-    const totalFrames = Math.round(duration * 60);
-    const increment = end / totalFrames;
-
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.ceil(start));
-      }
-    }, 1000 / 60);
-
-    return () => clearInterval(timer);
-  }, [isInView, value, duration]);
-
-  return <span ref={ref}>{count}</span>;
 };
 
 // --- Main Page ---
@@ -214,11 +191,13 @@ const ANIMATED_ROLES = ["Data Analyst", "Business Analyst", "Data Scientist", "M
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
-  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const shouldReduceMotion = useReducedMotion();
+  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", shouldReduceMotion ? "0%" : "50%"]);
+  const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, shouldReduceMotion ? 1 : 0]);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/30">
 
       {/* Dynamic Background */}
@@ -248,6 +227,8 @@ export default function Home() {
           className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors"
           onClick={() => setMobileOpen(o => !o)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
         >
           {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -257,11 +238,14 @@ export default function Home() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-navigation"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
             className="fixed top-[64px] left-0 right-0 z-40 bg-background/95 backdrop-blur-lg border-b border-white/10 md:hidden"
+            role="navigation"
+            aria-label="Mobile navigation"
           >
             <div className="flex flex-col px-6 py-4 gap-1">
               {NAV_LINKS.map(l => (
@@ -289,7 +273,7 @@ export default function Home() {
       {/* HERO SECTION */}
       <section className="relative min-h-[100dvh] flex items-center justify-center pt-20 px-6 z-10 overflow-hidden">
         <motion.div style={{ y: yBg, opacity: opacityHero }} className="absolute inset-0 z-0">
-          <img src="/hero-bg.png" alt="Data Visualization Background" className="w-full h-full object-cover opacity-30 mix-blend-screen" />
+          <img src="/hero-bg.jpg" alt="" aria-hidden="true" decoding="async" className="w-full h-full object-cover opacity-30 mix-blend-screen" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
         </motion.div>
 
@@ -391,7 +375,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* STATS STRIP */}
+      {/* PORTFOLIO HIGHLIGHTS */}
       <section className="relative z-20 py-12 border-y border-white/5 bg-background/50 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x-0 md:divide-x divide-white/5">
           {STATS.map((stat, i) => (
@@ -404,9 +388,7 @@ export default function Home() {
               className="flex flex-col items-center justify-center text-center px-4"
             >
               <stat.icon className="w-6 h-6 text-secondary mb-3 opacity-70" />
-              <div className="text-3xl md:text-4xl font-bold font-mono text-white flex items-center">
-                <AnimatedNumber value={stat.value} />{stat.suffix}
-              </div>
+              <div className="text-2xl md:text-3xl font-bold font-mono text-white flex items-center">{stat.value}</div>
               <div className="text-sm text-muted-foreground mt-1 uppercase tracking-wider font-mono text-xs">{stat.label}</div>
             </motion.div>
           ))}
@@ -518,23 +500,11 @@ export default function Home() {
                   </div>
                   <h4 className="font-semibold text-lg">{block.category}</h4>
                 </div>
-                <div className="space-y-4">
+                <div className="flex flex-wrap gap-2">
                   {block.items.map((item, j) => (
-                    <div key={j}>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="text-muted-foreground font-mono">{item.n}</span>
-                        <span className="text-white/50 font-mono text-xs">{item.v}%</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${item.v}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, delay: 0.5 + (j * 0.1) }}
-                          className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
-                        />
-                      </div>
-                    </div>
+                    <span key={j} className="inline-flex text-xs font-mono px-2.5 py-1.5 rounded-md bg-white/5 border border-white/10 text-muted-foreground">
+                      {item.n}
+                    </span>
                   ))}
                 </div>
               </motion.div>
@@ -642,11 +612,7 @@ export default function Home() {
                               <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
                             </a>
                           </Button>
-                        ) : (
-                          <Button variant="outline" size="sm" className="w-full bg-transparent border-white/10 text-white/30 cursor-not-allowed" disabled>
-                            <ExternalLink className="mr-2 h-4 w-4" /> No Demo
-                          </Button>
-                        )}
+                        ) : null}
                       </div>
                     </div>
                   </CardContent>
@@ -707,7 +673,7 @@ export default function Home() {
                   className="flex items-center gap-4 p-3 rounded-xl bg-background border border-white/5 hover:border-primary/40 transition-all group"
                 >
                   <div className="w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 border border-white/10 group-hover:border-primary/30 transition-colors">
-                    <img src={cert.img} alt={cert.title} className="w-full h-full object-cover" />
+                    <img src={cert.thumbnail} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h5 className="font-semibold text-white text-sm group-hover:text-primary transition-colors truncate">{cert.title}</h5>
@@ -729,14 +695,14 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-16"
+            className="mb-10"
           >
-            <h2 className="text-sm font-mono text-primary mb-2 uppercase tracking-widest">// Role_Specific_Builds</h2>
-            <h3 className="text-3xl md:text-5xl font-bold">Download Resume</h3>
-            <p className="text-muted-foreground mt-3 text-base font-light max-w-xl">Each resume is tailored for a specific role — pick the one that matches the opportunity.</p>
+            <h2 className="text-sm font-mono text-primary mb-2 uppercase tracking-widest">// Latest_CV</h2>
+            <h3 className="text-3xl md:text-5xl font-bold">Download My CV</h3>
+            <p className="text-muted-foreground mt-3 text-base font-light max-w-2xl">A quick overview of my background, technical strengths, selected work, and education.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="mx-auto w-full max-w-4xl">
             {RESUMES.map((resume, i) => (
               <motion.div
                 key={i}
@@ -747,24 +713,45 @@ export default function Home() {
                 className="group relative"
               >
                 <div className={`absolute -inset-0.5 rounded-2xl bg-gradient-to-br ${resume.color} blur opacity-0 group-hover:opacity-100 transition duration-500`} />
-                <div className={`relative h-full bg-background border ${resume.border} rounded-2xl p-6 flex flex-col transition-colors`}>
-                  <div className={`p-3 rounded-xl bg-white/5 border border-white/10 w-fit mb-4 ${resume.iconColor}`}>
-                    <FileText className="w-6 h-6" />
+                <div className={`relative bg-background border ${resume.border} rounded-2xl p-6 sm:p-8 transition-colors`}>
+                  <div className="flex flex-col md:flex-row md:items-center gap-6">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-4 mb-3">
+                        <div className={`p-3 rounded-xl bg-white/5 border border-white/10 flex-shrink-0 ${resume.iconColor}`}>
+                          <FileText className="w-6 h-6" />
+                        </div>
+                        <h4 className="font-bold text-white text-lg group-hover:text-primary transition-colors">{resume.role}</h4>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">{resume.desc}</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {resume.tags.map((tag, j) => (
+                          <span key={j} className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <a
+                      href={resume.file}
+                      download
+                      className={`w-full md:w-auto md:min-w-48 flex flex-shrink-0 items-center justify-center gap-2 py-2.5 px-5 rounded-lg border ${resume.border} text-sm font-mono text-white/80 hover:text-white bg-white/5 hover:bg-white/10 transition-all`}
+                    >
+                      <Download className="w-4 h-4" /> Download PDF
+                    </a>
                   </div>
-                  <h4 className="font-bold text-white text-lg mb-2 group-hover:text-primary transition-colors">{resume.role}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-grow">{resume.desc}</p>
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {resume.tags.map((tag, j) => (
-                      <span key={j} className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60">{tag}</span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-white/10 mt-7 pt-6">
+                    {resume.highlights.map((highlight) => (
+                      <div key={highlight.heading}>
+                        <h5 className="text-xs font-mono uppercase tracking-widest text-primary mb-3">{highlight.heading}</h5>
+                        <ul className="space-y-3">
+                          {highlight.details.map((detail) => (
+                            <li key={detail} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
+                              <span className="text-primary mt-0.5" aria-hidden="true">›</span>
+                              <span>{detail}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     ))}
                   </div>
-                  <a
-                    href={resume.file}
-                    download
-                    className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border ${resume.border} text-sm font-mono text-white/80 hover:text-white bg-white/5 hover:bg-white/10 transition-all`}
-                  >
-                    <Download className="w-4 h-4" /> Download PDF
-                  </a>
                 </div>
               </motion.div>
             ))}
@@ -826,5 +813,6 @@ export default function Home() {
         <p>SYSTEM.HALT // DESIGNED & ENGINEERED BY ABDUR RAFAY © {new Date().getFullYear()}</p>
       </footer>
     </div>
+    </MotionConfig>
   );
 }

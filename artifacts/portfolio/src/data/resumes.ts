@@ -2,6 +2,7 @@ export interface Resume {
   role: string;
   desc: string;
   tags: string[];
+  highlights: { heading: string; details: string[] }[];
   file: string;
   color: string;
   border: string;
@@ -10,39 +11,46 @@ export interface Resume {
 
 export const RESUMES: Resume[] = [
   {
-    role: "ML / AI Engineer",
-    desc: "Focused on machine learning pipelines, LLM applications, FastAPI backends, and deep learning fundamentals.",
-    tags: ["Python", "Scikit-learn", "FastAPI", "LLMs", "OCR"],
-    file: "/resume-ml-ai-engineer.pdf",
-    color: "from-violet-500/20 to-primary/10",
-    border: "border-violet-500/30 hover:border-violet-500/60",
-    iconColor: "text-violet-400",
-  },
-  {
-    role: "Data Analyst",
-    desc: "Covers EDA, data preprocessing, ETL, ML fundamentals, Power BI dashboards, SQL, and NLP — built for analytics-first and data science teams.",
-    tags: ["Python", "SQL", "Pandas", "Power BI", "EDA", "Scikit-learn", "NLP"],
-    file: "/resume-data-analyst.pdf",
+    role: "AI/ML Engineer · Data Analyst · Software Engineer",
+    desc: "Software Engineering graduate from the University of Karachi, building end-to-end AI/ML, NLP, and data applications. Experienced in Python, FastAPI, React, and PostgreSQL, with a background in business analysis and e-commerce platforms.",
+    tags: [
+      "Python",
+      "Machine Learning",
+      "NLP / LLMs / RAG",
+      "Data Analytics",
+      "FastAPI",
+      "React",
+      "SQL / PostgreSQL",
+      "Power BI",
+    ],
+    highlights: [
+      {
+        heading: "Selected projects",
+        details: [
+          "RAG University Assistant — document Q&A with streamed responses, citations, and confidence scores.",
+          "Email Threat Analyzer — multi-model phishing detection with threat visualizations and PDF reports.",
+          "Signal-Sentry — competitor monitoring with change detection, alerts, and a live dashboard.",
+          "AI Resume Screener — ATS-style scoring and candidate ranking using semantic similarity.",
+        ],
+      },
+      {
+        heading: "Experience & education",
+        details: [
+          "Business Analyst Intern at CODUP (Aug–Nov 2025): requirements gathering, Jira documentation, and e-commerce platform configuration.",
+          "B.S. in Software Engineering, University of Karachi (UBIT), 2021–2025.",
+        ],
+      },
+      {
+        heading: "Recognition & certifications",
+        details: [
+          "5th place, IEEE YESIST12 Final Year Project Ideas Competition for a Cybersecurity Virtual Assistant.",
+          "Certifications in AI/ML/DL, SQL for Data Analytics, Business Analytics with Excel, and Python.",
+        ],
+      },
+    ],
+    file: "/Abdur-Rafay-CV.pdf",
     color: "from-primary/20 to-cyan-500/10",
     border: "border-primary/30 hover:border-primary/60",
     iconColor: "text-primary",
-  },
-  {
-    role: "Business Analyst",
-    desc: "Showcases eCommerce platform experience, requirements gathering, Jira, and stakeholder collaboration.",
-    tags: ["Jira", "HubSpot", "Figma", "Agile", "Klaviyo"],
-    file: "/resume-business-analyst.pdf",
-    color: "from-emerald-500/20 to-teal-500/10",
-    border: "border-emerald-500/30 hover:border-emerald-500/60",
-    iconColor: "text-emerald-400",
-  },
-  {
-    role: "Software Engineer",
-    desc: "Covers OOP, DSA, ML/DL fundamentals, FastAPI backends, Python, and full-stack foundations — built for software engineering and dev roles.",
-    tags: ["Python", "FastAPI", "OOP", "DSA", "ML", "TensorFlow", "HTML/CSS"],
-    file: "/resume-software-engineer.pdf",
-    color: "from-amber-500/20 to-orange-500/10",
-    border: "border-amber-500/30 hover:border-amber-500/60",
-    iconColor: "text-amber-400",
   },
 ];

@@ -155,6 +155,18 @@ set PORT=5000
 pnpm run dev
 ```
 
+### Contact form email setup
+
+The API requires a Resend API key to send contact messages. For local testing, enter the key at a hidden PowerShell prompt, then start the API in that same shell:
+
+```powershell
+$secret = Read-Host "Resend API key" -AsSecureString
+$env:RESEND_API_KEY = [System.Net.NetworkCredential]::new("", $secret).Password
+pnpm --filter @workspace/api-server run dev
+```
+
+Do not commit the key or paste it into chat. The local API allows the portfolio dev server on port 3000. In the deployed API project, configure `RESEND_API_KEY` as a deployment secret and set `CORS_ORIGIN` to the exact portfolio origin (for example, `https://abdur-rafay-data-portfolio.vercel.app`). If the portfolio uses multiple origins, provide a comma-separated allowlist.
+
 ### Full workspace setup
 
 ```bash
@@ -162,6 +174,16 @@ cd ar-datafolio
 pnpm install
 pnpm run typecheck
 ```
+
+### Portfolio smoke tests
+
+With Microsoft Edge installed, run the browser smoke tests from the workspace root:
+
+```bash
+pnpm --filter @workspace/portfolio run test:e2e
+```
+
+The tests start or reuse the local portfolio server and mock contact submissions; they never send email.
 
 ## Contact
 

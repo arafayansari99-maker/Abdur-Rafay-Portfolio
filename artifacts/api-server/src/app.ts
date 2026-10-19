@@ -9,7 +9,7 @@ if (process.env["VERCEL"]) {
   app.set("trust proxy", 1);
 }
 
-const allowedOrigins = (process.env["CORS_ORIGIN"] ?? process.env["ALLOWED_ORIGINS"] ?? "https://abdur-rafay-data-portfolio.vercel.app,http://localhost:5173,http://127.0.0.1:5173")
+const allowedOrigins = (process.env["CORS_ORIGIN"] ?? process.env["ALLOWED_ORIGINS"] ?? "https://abdur-rafay-data-portfolio.vercel.app,http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
