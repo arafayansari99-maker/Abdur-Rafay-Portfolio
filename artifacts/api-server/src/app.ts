@@ -46,6 +46,10 @@ app.get("/", (_req, res) => {
   });
 });
 
+app.get("/favicon.ico", (_req, res) => {
+  res.status(204).end();
+});
+
 app.use("/api", router);
 
 export default app;
