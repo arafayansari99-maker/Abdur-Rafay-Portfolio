@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { inflateSync } from "node:zlib";
 
 test("page sections, project links, CV, and favicon are available", async ({ page, request }) => {
   await page.goto("/", { waitUntil: "domcontentloaded" });
@@ -13,16 +14,33 @@ test("page sections, project links, CV, and favicon are available", async ({ pag
   expect(resume.status()).toBe(200);
   expect(resume.headers()["content-type"]).toContain("application/pdf");
 
-  const favicon = await request.get("/favicon.png?v=3");
+  const favicon = await request.get("/favicon.png?v=4");
   expect(favicon.status()).toBe(200);
   expect(favicon.headers()["content-type"]).toContain("image/png");
+  const faviconPng = Buffer.from(await favicon.body());
+  expect(faviconPng.readUInt32BE(16)).toBe(256);
+  expect(faviconPng.readUInt32BE(20)).toBe(256);
+  expect(faviconPng[24]).toBe(8);
+  expect(faviconPng[25]).toBe(6);
+  const imageDataChunks: Buffer[] = [];
+  for (let offset = 8; offset < faviconPng.length;) {
+    const chunkLength = faviconPng.readUInt32BE(offset);
+    if (faviconPng.toString("ascii", offset + 4, offset + 8) === "IDAT") {
+      imageDataChunks.push(faviconPng.subarray(offset + 8, offset + 8 + chunkLength));
+    }
+    offset += chunkLength + 12;
+  }
+  const decodedImageData = inflateSync(Buffer.concat(imageDataChunks));
+  expect(Array.from(decodedImageData.subarray(1, 5))).toEqual([0, 0, 0, 255]);
 
-  const svgFavicon = await request.get("/favicon.svg?v=3");
+  const svgFavicon = await request.get("/favicon.svg?v=4");
   expect(svgFavicon.status()).toBe(200);
   expect(svgFavicon.headers()["content-type"]).toContain("image/svg+xml");
-  expect(await svgFavicon.text()).toContain("data:image/png;base64,");
+  const svgContent = await svgFavicon.text();
+  expect(svgContent).toContain('fill="#000"');
+  expect(svgContent).toContain("data:image/png;base64,");
 
-  const icoFavicon = await request.get("/favicon.ico?v=3");
+  const icoFavicon = await request.get("/favicon.ico?v=4");
   expect(icoFavicon.status()).toBe(200);
   expect(icoFavicon.headers()["content-type"]).toContain("image/");
 
